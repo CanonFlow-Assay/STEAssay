@@ -1,0 +1,117 @@
+{
+  "schemaVersion": "ste-assay-release-preparation/0.1",
+  "generatedAt": "2026-08-13T06:50:00.000Z",
+  "baseMain": "a2bfc1af05aa1ea9558fbcb4a3aa1a21d78d2475",
+  "artifactBuildCommit": "4aceb2fd7405c95faadc0692d469cde957ad76f2",
+  "toolchain": {
+    "node": "v20.20.2",
+    "npm": "10.8.2"
+  },
+  "repositoryChecks": [
+    {
+      "command": "npm ci",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run format:check",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0
+    },
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "detail": "30/30 tests passed"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0
+    }
+  ],
+  "npmPack": {
+    "name": "ste-assay",
+    "version": "0.1.0",
+    "filename": "ste-assay-0.1.0.tgz",
+    "size": 15612,
+    "unpackedSize": 55487,
+    "fileCount": 14,
+    "sha256": "d3ca79c18272d6c6167127d2894331ee2d65a7440c816e35ce040d4b9a5599b1",
+    "sha1": "c7dba79b23411858b97c666a1c36c46b593ecc35",
+    "npmShasum": "c7dba79b23411858b97c666a1c36c46b593ecc35",
+    "integrity": "sha512-qpe9iw8mvd1yRTg1KUHqr2GNWjFR7fzIrnzhAppndx6TITGkrHRe4QsfLMchNPTv7gGHxNXynPbz3nYvfVSsyg==",
+    "publishable": true,
+    "fileManifest": "tarball.json"
+  },
+  "installedFixture": {
+    "installCommand": "npm install --ignore-scripts <exact tarball>",
+    "markdownPaths": [
+      "docs/guide.md"
+    ],
+    "commands": {
+      "help": {
+        "command": "ste-assay --help",
+        "exitCode": 0,
+        "stdout": "Usage: ste-assay <doctor|scan|verify|explain> <path-or-rule-id>\n\nMarkdown-only controlled technical writing policy verifier.\nArtifacts: <target>/.ste-assay/receipt.json and <target>/.ste-assay/report.sarif\n"
+      },
+      "doctor": {
+        "command": "ste-assay doctor .",
+        "exitCode": 0,
+        "verdict": "Inconclusive",
+        "authoritative": false,
+        "stdout": "Inconclusive authoritative=false\n0 findings; scanned=0; excluded=0\nreceipt=.ste-assay/receipt.json\nsarif=.ste-assay/report.sarif\nlimitation=Doctor checks toolchain and configuration readiness; it makes no compliance claim.\n"
+      },
+      "scan": {
+        "command": "ste-assay scan .",
+        "exitCode": 2,
+        "verdict": "Inconclusive",
+        "authoritative": false,
+        "stdout": "Inconclusive authoritative=false\n0 findings; scanned=1; excluded=0\nreceipt=.ste-assay/receipt.json\nsarif=.ste-assay/report.sarif\nlimitation=Configured required commands were not run by scan.\n",
+        "receiptSha256": "4bc0a7a6231c1007e38687ed7003e7ea6cdd3207c58114f19e1e49985d1dbf71",
+        "sarifSha256": "0d5c6b8ea44a9b5d4b2afc374c74d36eaba5425211f66ff2815828b7900a6fc6"
+      },
+      "verify": {
+        "command": "ste-assay verify .",
+        "exitCode": 0,
+        "verdict": "Pass",
+        "authoritative": true,
+        "stdout": "Pass authoritative=true\n0 findings; scanned=1; excluded=0\nreceipt=.ste-assay/receipt.json\nsarif=.ste-assay/report.sarif\nlimitation=Pass is limited to this pinned tool, policy, configured data, and successfully observed Markdown scope.\n",
+        "receiptSha256": "e6fe0b80604c14a212405e485050668cbc4a6325079bc2a1328ece28ae064c03",
+        "sarifSha256": "0d5c6b8ea44a9b5d4b2afc374c74d36eaba5425211f66ff2815828b7900a6fc6"
+      }
+    },
+    "assertions": {
+      "helpExitsSuccessfully": true,
+      "doctorExitsSuccessfullyWithoutComplianceClaim": true,
+      "scanIsNonAuthoritativeWhenRequiredCommandIsNotRun": true,
+      "verifyIsAuthoritativePassWithCompleteScopeAndPassedCommand": true
+    }
+  },
+  "candidateChanges": [
+    {
+      "commit": "64248bd47d49ea7a962875ee764688e71da7313f",
+      "summary": "Installed-tarball exercise exposed --help exit 64; added standard --help/-h success handling and regression test.",
+      "policyOrRuleChange": false
+    },
+    {
+      "commit": "8bfe6bf17165004ad300b6e68288fb32a32d13d6",
+      "summary": "Changed package private flag to false so a later separately approved npm publication is technically possible.",
+      "policyOrRuleChange": false
+    },
+    {
+      "commit": "4aceb2fd7405c95faadc0692d469cde957ad76f2",
+      "summary": "Added a package files allowlist so evidence commits do not alter the distributed tarball.",
+      "policyOrRuleChange": false
+    }
+  ],
+  "limitations": [
+    "This evidence proves only the exact artifact-build commit tarball was built, installed, and observed under the recorded fixture, Node runtime, policy, vocabulary, and required command.",
+    "The release-evidence commit is deliberately excluded from the package files allowlist; a clean final-candidate pack must match this artifact digest before any later publish decision.",
+    "No npm publication, tag, GitHub release, rule expansion, policy-semantics change, or automatic rewriting occurred in this preparation slice."
+  ]
+}
