@@ -267,6 +267,7 @@ export const loadConfiguration = async (
   const glossary = parseGlossary(glossaryText);
   const vocabulary = parseVocabulary(vocabularyText);
   return {
+    root,
     policy,
     glossary,
     vocabulary,

@@ -167,17 +167,32 @@ const receipt = (
       policyPath:
         input.configuration === undefined
           ? null
-          : normalizePath(input.configuration.policyPath),
+          : normalizePath(
+              relative(
+                input.configuration.root,
+                input.configuration.policyPath,
+              ),
+            ),
       policyDigest: input.configuration?.policyDigest ?? null,
       glossaryPath:
         input.configuration === undefined
           ? null
-          : normalizePath(input.configuration.glossaryPath),
+          : normalizePath(
+              relative(
+                input.configuration.root,
+                input.configuration.glossaryPath,
+              ),
+            ),
       glossaryDigest: input.configuration?.glossaryDigest ?? null,
       vocabularyPath:
         input.configuration === undefined
           ? null
-          : normalizePath(input.configuration.vocabularyPath),
+          : normalizePath(
+              relative(
+                input.configuration.root,
+                input.configuration.vocabularyPath,
+              ),
+            ),
       vocabularyDigest: input.configuration?.vocabularyDigest ?? null,
       profile: input.configuration?.policy.profile ?? null,
       ruleCatalogDigest: catalogDigest,

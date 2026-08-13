@@ -69,6 +69,7 @@ export interface Vocabulary {
 }
 
 export interface LoadedConfiguration {
+  readonly root: string;
   readonly policy: Policy;
   readonly glossary: Glossary;
   readonly vocabulary: Vocabulary;

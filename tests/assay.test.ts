@@ -43,6 +43,12 @@ test("verify reports authoritative Pass for complete compliant scope and passed 
     assert.deepEqual(result.receipt.scope.excludedPaths, [
       "docs/excluded/private.md",
     ]);
+    assert.equal(result.receipt.configuration.policyPath, ".steassay.json");
+    assert.equal(result.receipt.configuration.glossaryPath, "glossary.json");
+    assert.equal(
+      result.receipt.configuration.vocabularyPath,
+      "vocabulary.json",
+    );
     assert.equal(result.receipt.requiredCommands[0]?.status, "Passed");
   } finally {
     await cleanup(directory);
