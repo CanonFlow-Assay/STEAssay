@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "profile": "converge",
+  "includeGlobs": [
+    "docs/**/*.md"
+  ],
+  "excludedGlobs": [
+    "docs/transports.md"
+  ],
+  "glossaryPath": "m1-glossary.json",
+  "vocabularyPath": "m1-vocabulary.json",
+  "requiredCommands": [
+    "npm run lint"
+  ],
+  "rules": {
+    "STE-S01": {
+      "maxWords": 80
+    },
+    "STE-S09": {
+      "markers": [
+        "must"
+      ],
+      "modals": [
+        "must",
+        "shall"
+      ]
+    }
+  },
+  "baseline": [
+    {
+      "fingerprint": "62c891e6ba27f2eb70cd83c9302e6dafcf299fad661548387059caab877ea420",
+      "rationale": "Existing finding observed in the selected Winston documentation at commit ff0b79de8562bb322c390fbc82fe71c11f373428; retained for the M1 converge demonstration.",
+      "reviewedBy": "single-agent M1 documentation consumer exercise"
+    },
+    {
+      "fingerprint": "de9bd004e763f24e43f884ddff8e46735cc5d755f3c309aeb22d89de67636a94",
+      "rationale": "Existing finding observed in the selected Winston documentation at commit ff0b79de8562bb322c390fbc82fe71c11f373428; retained for the M1 converge demonstration.",
+      "reviewedBy": "single-agent M1 documentation consumer exercise"
+    },
+    {
+      "fingerprint": "1a90bc54697a256b917faa10832aee4ca4cd897d1a4a5ae19fea48181ec845d4",
+      "rationale": "Existing finding observed in the selected Winston documentation at commit ff0b79de8562bb322c390fbc82fe71c11f373428; retained for the M1 converge demonstration.",
+      "reviewedBy": "single-agent M1 documentation consumer exercise"
+    },
+    {
+      "fingerprint": "aa41a78a40fe015bc540574d823e3c11cd6a4371beba29731def9ab229bfd9d4",
+      "rationale": "Existing finding observed in the selected Winston documentation at commit ff0b79de8562bb322c390fbc82fe71c11f373428; retained for the M1 converge demonstration.",
+      "reviewedBy": "single-agent M1 documentation consumer exercise"
+    },
+    {
+      "fingerprint": "9e843231964277111eb07d93b0f72fe4ea0a527ba451ef9de960c70c1af0905e",
+      "rationale": "Existing finding observed in the selected Winston documentation at commit ff0b79de8562bb322c390fbc82fe71c11f373428; retained for the M1 converge demonstration.",
+      "reviewedBy": "single-agent M1 documentation consumer exercise"
+    },
+    {
+      "fingerprint": "0071e33e24e6c87da912b6575e38b74648f3e6a1821cb07bcdc1dc24c4ec4f64",
+      "rationale": "Existing finding observed in the selected Winston documentation at commit ff0b79de8562bb322c390fbc82fe71c11f373428; retained for the M1 converge demonstration.",
+      "reviewedBy": "single-agent M1 documentation consumer exercise"
+    },
+    {
+      "fingerprint": "ddcfb6f2c167f3392ff33577e3142efae2a1c92123ecc2f97e1daf89d790fbbd",
+      "rationale": "Existing finding observed in the selected Winston documentation at commit ff0b79de8562bb322c390fbc82fe71c11f373428; retained for the M1 converge demonstration.",
+      "reviewedBy": "single-agent M1 documentation consumer exercise"
+    },
+    {
+      "fingerprint": "47665f1be404393e97d90ff6a77d264495c709f9164cab13dbd3fb98aaaf0c6d",
+      "rationale": "Existing finding observed in the selected Winston documentation at commit ff0b79de8562bb322c390fbc82fe71c11f373428; retained for the M1 converge demonstration.",
+      "reviewedBy": "single-agent M1 documentation consumer exercise"
+    },
+    {
+      "fingerprint": "963bd6d153387c159448fb6499462b478cda3cfb5a94d4f903708f923aa7fbd5",
+      "rationale": "Existing finding observed in the selected Winston documentation at commit ff0b79de8562bb322c390fbc82fe71c11f373428; retained for the M1 converge demonstration.",
+      "reviewedBy": "single-agent M1 documentation consumer exercise"
+    }
+  ]
+}

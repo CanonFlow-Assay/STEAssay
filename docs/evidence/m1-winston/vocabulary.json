@@ -1,0 +1,10 @@
+{
+  "bannedTerms": ["config"],
+  "deprecatedTerms": [
+    { "term": "default", "replacement": "explicit setting" }
+  ],
+  "imperativeVerbs": ["add", "move", "use"],
+  "terminology": [
+    { "canonical": "release", "inconsistent": ["publish"] }
+  ]
+}

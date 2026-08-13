@@ -1,0 +1,210 @@
+{
+  "authoritative": true,
+  "authorityLimitations": [
+    "Pass is limited to this pinned tool, policy, configured data, and successfully observed Markdown scope."
+  ],
+  "command": "verify",
+  "configuration": {
+    "glossaryDigest": "81a655389d6b8bde623e8332296e98d66fd29e5249c09e9e00ea5149c0a5e993",
+    "glossaryPath": "m1-glossary.json",
+    "policyDigest": "c6aca61363a9c6bb30e4256a146fd897e07d7bdbf61f8c287925623a136afdb1",
+    "policyPath": ".steassay.json",
+    "profile": "converge",
+    "ruleCatalogDigest": "551ebacf7dd8471d3faaa0a3d1b5be09109631158468ca0e543f359e8664d5c1",
+    "vocabularyDigest": "76d5c4315d62ee1567367e86b08626cba1105a04754ebf6c359e4923736082ee",
+    "vocabularyPath": "m1-vocabulary.json"
+  },
+  "findings": [
+    {
+      "baseline": true,
+      "fingerprint": "62c891e6ba27f2eb70cd83c9302e6dafcf299fad661548387059caab877ea420",
+      "message": "Abbreviation UI is absent from the configured glossary.",
+      "path": "docs/publishing.md",
+      "position": {
+        "column": 87,
+        "line": 4
+      },
+      "ruleId": "STE-S03",
+      "severity": "blocking"
+    },
+    {
+      "baseline": false,
+      "fingerprint": "5be9c04557ef8317180c5f14fb33e9d9b7dee8b185197605c1c2b5dcecc82cdf",
+      "message": "Configured noncanonical term occurs: publish. Prefer release.",
+      "path": "docs/publishing.md",
+      "position": {
+        "column": 155,
+        "line": 5
+      },
+      "ruleId": "STE-S10",
+      "severity": "advisory"
+    },
+    {
+      "baseline": false,
+      "fingerprint": "f0e50585578e8ea06c89432d19468628801b71aae3c1a33522d3b7b3862e030f",
+      "message": "Configured noncanonical term occurs: publish. Prefer release.",
+      "path": "docs/publishing.md",
+      "position": {
+        "column": 11,
+        "line": 17
+      },
+      "ruleId": "STE-S10",
+      "severity": "advisory"
+    },
+    {
+      "baseline": false,
+      "fingerprint": "c2f3306c0d98ddd336c5a36e5a02eb1927117ebb10c81838bb9192b41ff0ef22",
+      "message": "Configured noncanonical term occurs: publish. Prefer release.",
+      "path": "docs/publishing.md",
+      "position": {
+        "column": 35,
+        "line": 18
+      },
+      "ruleId": "STE-S10",
+      "severity": "advisory"
+    },
+    {
+      "baseline": false,
+      "fingerprint": "75ad763df33ed1f0822aef3651f04adc3e7606106d433bd4ea4a9f95bd2d89fd",
+      "message": "Sentence matches the advisory passive-voice pattern.",
+      "path": "docs/publishing.md",
+      "position": {
+        "column": 4,
+        "line": 21
+      },
+      "ruleId": "STE-S05",
+      "severity": "advisory"
+    },
+    {
+      "baseline": true,
+      "fingerprint": "de9bd004e763f24e43f884ddff8e46735cc5d755f3c309aeb22d89de67636a94",
+      "message": "Abbreviation UPGRADE-3 is absent from the configured glossary.",
+      "path": "docs/releases.md",
+      "position": {
+        "column": 86,
+        "line": 17
+      },
+      "ruleId": "STE-S03",
+      "severity": "blocking"
+    },
+    {
+      "baseline": true,
+      "fingerprint": "1a90bc54697a256b917faa10832aee4ca4cd897d1a4a5ae19fea48181ec845d4",
+      "message": "Abbreviation RC is absent from the configured glossary.",
+      "path": "docs/releases.md",
+      "position": {
+        "column": 106,
+        "line": 21
+      },
+      "ruleId": "STE-S03",
+      "severity": "blocking"
+    },
+    {
+      "baseline": true,
+      "fingerprint": "aa41a78a40fe015bc540574d823e3c11cd6a4371beba29731def9ab229bfd9d4",
+      "message": "Configured banned term occurs: config.",
+      "path": "docs/releases.md",
+      "position": {
+        "column": 21,
+        "line": 33
+      },
+      "ruleId": "STE-S04",
+      "severity": "blocking"
+    },
+    {
+      "baseline": true,
+      "fingerprint": "9e843231964277111eb07d93b0f72fe4ea0a527ba451ef9de960c70c1af0905e",
+      "message": "Configured banned term occurs: config.",
+      "path": "docs/releases.md",
+      "position": {
+        "column": 44,
+        "line": 33
+      },
+      "ruleId": "STE-S04",
+      "severity": "blocking"
+    },
+    {
+      "baseline": true,
+      "fingerprint": "0071e33e24e6c87da912b6575e38b74648f3e6a1821cb07bcdc1dc24c4ec4f64",
+      "message": "Abbreviation DEPRECATE is absent from the configured glossary.",
+      "path": "docs/releases.md",
+      "position": {
+        "column": 9,
+        "line": 34
+      },
+      "ruleId": "STE-S03",
+      "severity": "blocking"
+    },
+    {
+      "baseline": true,
+      "fingerprint": "ddcfb6f2c167f3392ff33577e3142efae2a1c92123ecc2f97e1daf89d790fbbd",
+      "message": "Configured banned term occurs: config.",
+      "path": "docs/releases.md",
+      "position": {
+        "column": 21,
+        "line": 40
+      },
+      "ruleId": "STE-S04",
+      "severity": "blocking"
+    },
+    {
+      "baseline": true,
+      "fingerprint": "47665f1be404393e97d90ff6a77d264495c709f9164cab13dbd3fb98aaaf0c6d",
+      "message": "Configured deprecated term occurs: default. Use explicit setting instead.",
+      "path": "docs/releases.md",
+      "position": {
+        "column": 55,
+        "line": 73
+      },
+      "ruleId": "STE-S08",
+      "severity": "blocking"
+    },
+    {
+      "baseline": true,
+      "fingerprint": "963bd6d153387c159448fb6499462b478cda3cfb5a94d4f903708f923aa7fbd5",
+      "message": "Configured deprecated term occurs: default. Use explicit setting instead.",
+      "path": "docs/releases.md",
+      "position": {
+        "column": 69,
+        "line": 89
+      },
+      "ruleId": "STE-S08",
+      "severity": "blocking"
+    }
+  ],
+  "findingsDigest": "583e28d04a6714948a0d96ebba766928ff0c44a7079779a6a3fc6570cda42093",
+  "generatedAt": "2026-08-13T05:40:00.000Z",
+  "requiredCommands": [
+    {
+      "command": "npm run lint",
+      "exitCode": 0,
+      "outputDigest": "8ac7a8628cb7651736212b666616e62e44dc968c78633ff04532299c009ece2d",
+      "status": "Passed"
+    }
+  ],
+  "schemaVersion": 1,
+  "scope": {
+    "complete": true,
+    "excludedPaths": [
+      "docs/transports.md"
+    ],
+    "scannedPaths": [
+      "docs/publishing.md",
+      "docs/releases.md"
+    ],
+    "unloadedPaths": [],
+    "unmatchedGlobs": []
+  },
+  "source": {
+    "contentDigest": "9cca3cf036f919d0ff0f06a70808e171926519bba52ed515d0c4838b6dc23cc1"
+  },
+  "tool": {
+    "name": "ste-assay",
+    "version": "0.1.0"
+  },
+  "toolchain": {
+    "node": "v20.20.2",
+    "npm": null
+  },
+  "verdict": "Pass"
+}
