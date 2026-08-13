@@ -1,0 +1,6 @@
+{
+  "bannedTerms": ["very"],
+  "deprecatedTerms": [{ "term": "whitelist", "replacement": "allow list" }],
+  "imperativeVerbs": ["open", "check", "close"],
+  "terminology": [{ "canonical": "service", "inconsistent": ["daemon"] }]
+}

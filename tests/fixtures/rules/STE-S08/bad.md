@@ -1,0 +1,3 @@
+# Deprecated
+
+Use oldword now.

@@ -1,0 +1,3 @@
+# Terms
+
+The service starts.
