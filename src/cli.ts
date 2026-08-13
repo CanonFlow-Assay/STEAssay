@@ -13,6 +13,10 @@ const usage = (): string =>
 
 const main = async (): Promise<number> => {
   const [command, target] = process.argv.slice(2);
+  if (command === "--help" || command === "-h") {
+    process.stdout.write(`${usage()}\n`);
+    return 0;
+  }
   if (command === "explain") {
     if (target === undefined) {
       process.stderr.write(`${usage()}\n`);
