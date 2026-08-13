@@ -1,0 +1,3 @@
+# Banned
+
+The forbiddenword occurs.
