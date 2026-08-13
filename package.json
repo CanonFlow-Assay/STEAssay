@@ -5,6 +5,14 @@
   "license": "Apache-2.0",
   "private": false,
   "type": "module",
+  "files": [
+    "dist/src",
+    "README.md",
+    "LICENSE",
+    "SECURITY.md",
+    "CONTRIBUTING.md",
+    "CODE_OF_CONDUCT.md"
+  ],
   "engines": {
     "node": "20.20.2",
     "npm": "10.8.2"
