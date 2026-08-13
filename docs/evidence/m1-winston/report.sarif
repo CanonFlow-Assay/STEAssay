@@ -1,0 +1,359 @@
+{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "docs/publishing.md"
+                },
+                "region": {
+                  "startColumn": 87,
+                  "startLine": 4
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Abbreviation UI is absent from the configured glossary."
+          },
+          "ruleId": "STE-S03"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "docs/publishing.md"
+                },
+                "region": {
+                  "startColumn": 155,
+                  "startLine": 5
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Configured noncanonical term occurs: publish. Prefer release."
+          },
+          "ruleId": "STE-S10"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "docs/publishing.md"
+                },
+                "region": {
+                  "startColumn": 11,
+                  "startLine": 17
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Configured noncanonical term occurs: publish. Prefer release."
+          },
+          "ruleId": "STE-S10"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "docs/publishing.md"
+                },
+                "region": {
+                  "startColumn": 35,
+                  "startLine": 18
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Configured noncanonical term occurs: publish. Prefer release."
+          },
+          "ruleId": "STE-S10"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "docs/publishing.md"
+                },
+                "region": {
+                  "startColumn": 4,
+                  "startLine": 21
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Sentence matches the advisory passive-voice pattern."
+          },
+          "ruleId": "STE-S05"
+        },
+        {
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "docs/releases.md"
+                },
+                "region": {
+                  "startColumn": 86,
+                  "startLine": 17
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Abbreviation UPGRADE-3 is absent from the configured glossary."
+          },
+          "ruleId": "STE-S03"
+        },
+        {
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "docs/releases.md"
+                },
+                "region": {
+                  "startColumn": 106,
+                  "startLine": 21
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Abbreviation RC is absent from the configured glossary."
+          },
+          "ruleId": "STE-S03"
+        },
+        {
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "docs/releases.md"
+                },
+                "region": {
+                  "startColumn": 21,
+                  "startLine": 33
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Configured banned term occurs: config."
+          },
+          "ruleId": "STE-S04"
+        },
+        {
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "docs/releases.md"
+                },
+                "region": {
+                  "startColumn": 44,
+                  "startLine": 33
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Configured banned term occurs: config."
+          },
+          "ruleId": "STE-S04"
+        },
+        {
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "docs/releases.md"
+                },
+                "region": {
+                  "startColumn": 9,
+                  "startLine": 34
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Abbreviation DEPRECATE is absent from the configured glossary."
+          },
+          "ruleId": "STE-S03"
+        },
+        {
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "docs/releases.md"
+                },
+                "region": {
+                  "startColumn": 21,
+                  "startLine": 40
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Configured banned term occurs: config."
+          },
+          "ruleId": "STE-S04"
+        },
+        {
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "docs/releases.md"
+                },
+                "region": {
+                  "startColumn": 55,
+                  "startLine": 73
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Configured deprecated term occurs: default. Use explicit setting instead."
+          },
+          "ruleId": "STE-S08"
+        },
+        {
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "docs/releases.md"
+                },
+                "region": {
+                  "startColumn": 69,
+                  "startLine": 89
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Configured deprecated term occurs: default. Use explicit setting instead."
+          },
+          "ruleId": "STE-S08"
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "STEAssay",
+          "rules": [
+            {
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "id": "STE-S01",
+              "shortDescription": {
+                "text": "Sentence exceeds configured word limit"
+              }
+            },
+            {
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "id": "STE-S02",
+              "shortDescription": {
+                "text": "Heading is empty"
+              }
+            },
+            {
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "id": "STE-S03",
+              "shortDescription": {
+                "text": "Abbreviation is not in the configured glossary"
+              }
+            },
+            {
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "id": "STE-S04",
+              "shortDescription": {
+                "text": "Configured banned term occurs"
+              }
+            },
+            {
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "id": "STE-S05",
+              "shortDescription": {
+                "text": "Passive-voice pattern"
+              }
+            },
+            {
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "id": "STE-S06",
+              "shortDescription": {
+                "text": "More than one configured imperative action"
+              }
+            },
+            {
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "id": "STE-S08",
+              "shortDescription": {
+                "text": "Configured deprecated term occurs"
+              }
+            },
+            {
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "id": "STE-S09",
+              "shortDescription": {
+                "text": "Requirement sentence lacks configured modal language"
+              }
+            },
+            {
+              "defaultConfiguration": {
+                "level": "warning"
+              },
+              "id": "STE-S10",
+              "shortDescription": {
+                "text": "Configured terminology inconsistency"
+              }
+            }
+          ],
+          "version": "0.1.0"
+        }
+      }
+    }
+  ],
+  "version": "2.1.0"
+}

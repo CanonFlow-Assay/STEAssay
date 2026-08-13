@@ -1,0 +1,9 @@
+{
+  "abbreviations": {
+    "API": "application programming interface",
+    "CI": "continuous integration",
+    "JSON": "JavaScript Object Notation",
+    "PR": "pull request",
+    "README": "project readme file"
+  }
+}
