@@ -4,6 +4,8 @@ import { cp, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { resolve } from "node:path";
 import test from "node:test";
+import { analyzeFiles } from "../src/analyzer.js";
+import { sha256 } from "../src/canonical.js";
 import { execute } from "../src/evidence.js";
 
 const fixtureRoot = resolve(process.cwd(), "tests", "fixtures");
@@ -34,6 +36,54 @@ const writePolicy = async (
   );
 };
 
+const analysisConfiguration = (
+  overrides: Partial<{
+    readonly maxWords: number;
+    readonly bannedTerms: readonly string[];
+  }> = {},
+) => ({
+  maxWords: overrides.maxWords ?? 12,
+  glossary: { abbreviations: {} },
+  vocabulary: {
+    bannedTerms: overrides.bannedTerms ?? [],
+    deprecatedTerms: [],
+    imperativeVerbs: [],
+    terminology: [],
+  },
+  requirementMarkers: [],
+  requirementModals: [],
+});
+
+const loadCompiledWholeTerm = async (): Promise<(term: string) => RegExp> => {
+  const artifactPath = resolve(process.cwd(), "dist", "src", "analyzer.js");
+  let artifact = await readFile(artifactPath, "utf8");
+  const replacements: readonly [string, string][] = [
+    [
+      'import { basename } from "node:path";',
+      "const basename = (value) => value;",
+    ],
+    [
+      'import { canonicalJson, sha256 } from "./canonical.js";',
+      "const canonicalJson = () => ''; const sha256 = () => '';",
+    ],
+    [
+      'import { findRule } from "./catalog.js";',
+      "const findRule = () => undefined;",
+    ],
+  ];
+  for (const [source, replacement] of replacements) {
+    assert.equal(artifact.includes(source), true);
+    artifact = artifact.replace(source, replacement);
+  }
+  const moduleUrl = `data:text/javascript;base64,${Buffer.from(
+    `${artifact}\nexport { wholeTerm as inspectedWholeTerm };\n`,
+  ).toString("base64")}`;
+  const inspected = (await import(moduleUrl)) as {
+    readonly inspectedWholeTerm: (term: string) => RegExp;
+  };
+  return inspected.inspectedWholeTerm;
+};
+
 test("CLI help exits successfully without requiring a target", () => {
   const result = spawnSync(
     process.execPath,
@@ -42,6 +92,90 @@ test("CLI help exits successfully without requiring a target", () => {
   );
   assert.equal(result.status, 0);
   assert.match(result.stdout, /Usage: ste-assay/u);
+});
+
+test("whole configured terms use the runtime Unicode letter-number-underscore boundary", async () => {
+  const wholeTerm = await loadCompiledWholeTerm();
+  const pattern = wholeTerm("cat");
+  assert.equal(pattern.source, "(?<![\\p{L}\\p{N}_])cat(?![\\p{L}\\p{N}_])");
+  assert.equal(pattern.flags, "giu");
+  const matches = (text: string): boolean => wholeTerm("cat").test(text);
+  assert.equal(matches("scat"), false);
+  assert.equal(matches("catapult"), false);
+  assert.equal(matches("cat"), true);
+  assert.equal(matches("écat"), false);
+  assert.equal(matches("caté"), false);
+  assert.equal(matches("котcat"), false);
+  assert.equal(matches("catёж"), false);
+  assert.equal(matches("2cat"), false);
+  assert.equal(matches("cat2"), false);
+  assert.equal(matches("_cat"), false);
+  assert.equal(matches("cat_value"), false);
+
+  const findings = analyzeFiles(
+    [
+      {
+        absolutePath: "/observed/docs/terms.md",
+        relativePath: "docs/terms.md",
+        content:
+          "scat catapult cat écat caté котcat catёж 2cat cat2 _cat cat_value",
+      },
+    ],
+    analysisConfiguration({ bannedTerms: ["cat"] }),
+  ).filter((finding) => finding.ruleId === "STE-S04");
+  assert.deepEqual(
+    findings.map((finding) => finding.message),
+    ["Configured banned term occurs: cat."],
+  );
+});
+
+test("STE-S01 sentence splitting has characterized false negatives for period-bearing tokens", () => {
+  const cases = [
+    ["U.S.", "U.S. contains alpha beta gamma."],
+    ["e.g.", "e.g. contains alpha beta gamma."],
+    ["version 1.2.3", "Version 1.2.3 has alpha beta gamma."],
+    ["example.com", "example.com has alpha beta gamma."],
+    ["decimal 3.14", "Value 3.14 has alpha beta gamma."],
+  ] as const;
+  for (const [label, content] of cases) {
+    const findings = analyzeFiles(
+      [
+        {
+          absolutePath: "/observed/docs/sentence.md",
+          relativePath: "docs/sentence.md",
+          content,
+        },
+      ],
+      analysisConfiguration({ maxWords: 5 }),
+    ).filter((finding) => finding.ruleId === "STE-S01");
+    assert.deepEqual(
+      findings,
+      [],
+      `${label} is split at periods before the full prose sentence exceeds the configured limit.`,
+    );
+  }
+});
+
+test("required commands execute policy text through a shell and record its digest", async () => {
+  const directory = await makeProject();
+  try {
+    const configured = await policy(directory);
+    const first = "process.stdout.write(process.argv[1])";
+    const second = "process.stdout.write('|second')";
+    const command = `${process.execPath} -e ${JSON.stringify(first)} "alpha two" && ${process.execPath} -e ${JSON.stringify(second)}`;
+    configured.requiredCommands = [command];
+    await writePolicy(directory, configured);
+
+    const result = await execute("verify", directory);
+    const receipt = result.receipt.requiredCommands[0];
+    assert.equal(result.receipt.verdict, "Pass");
+    assert.equal(receipt?.command, command);
+    assert.equal(receipt?.status, "Passed");
+    assert.equal(receipt?.exitCode, 0);
+    assert.equal(receipt?.outputDigest, sha256("alpha two|second"));
+  } finally {
+    await cleanup(directory);
+  }
 });
 
 test("verify reports authoritative Pass for complete compliant scope and passed evidence", async () => {
