@@ -1,0 +1,363 @@
+{
+  "package": {
+    "name": "ste-assay",
+    "version": "0.1.0",
+    "filename": "ste-assay-0.1.0.tgz",
+    "size": 39980,
+    "unpackedSize": 159276,
+    "fileCount": 69,
+    "files": [
+      {
+        "path": ".github/workflows/ci.yml",
+        "size": 560,
+        "mode": 420
+      },
+      {
+        "path": ".nvmrc",
+        "size": 8,
+        "mode": 420
+      },
+      {
+        "path": ".prettierignore",
+        "size": 17,
+        "mode": 420
+      },
+      {
+        "path": "CODE_OF_CONDUCT.md",
+        "size": 243,
+        "mode": 420
+      },
+      {
+        "path": "CONTRIBUTING.md",
+        "size": 453,
+        "mode": 420
+      },
+      {
+        "path": "LICENSE",
+        "size": 11357,
+        "mode": 420
+      },
+      {
+        "path": "README.md",
+        "size": 2856,
+        "mode": 420
+      },
+      {
+        "path": "SECURITY.md",
+        "size": 354,
+        "mode": 420
+      },
+      {
+        "path": "dist/src/analyzer.js",
+        "size": 9466,
+        "mode": 420
+      },
+      {
+        "path": "dist/src/canonical.js",
+        "size": 656,
+        "mode": 420
+      },
+      {
+        "path": "dist/src/catalog.js",
+        "size": 4006,
+        "mode": 420
+      },
+      {
+        "path": "dist/src/cli.js",
+        "size": 2466,
+        "mode": 420
+      },
+      {
+        "path": "dist/src/evidence.js",
+        "size": 11263,
+        "mode": 420
+      },
+      {
+        "path": "dist/src/model.js",
+        "size": 11,
+        "mode": 420
+      },
+      {
+        "path": "dist/src/policy.js",
+        "size": 8158,
+        "mode": 420
+      },
+      {
+        "path": "dist/src/scope.js",
+        "size": 3065,
+        "mode": 420
+      },
+      {
+        "path": "dist/tests/assay.test.js",
+        "size": 10533,
+        "mode": 420
+      },
+      {
+        "path": "docs/evidence-model.md",
+        "size": 847,
+        "mode": 420
+      },
+      {
+        "path": "docs/evidence/m1-winston/glossary.json",
+        "size": 217,
+        "mode": 420
+      },
+      {
+        "path": "docs/evidence/m1-winston/policy.json",
+        "size": 3660,
+        "mode": 420
+      },
+      {
+        "path": "docs/evidence/m1-winston/receipt.json",
+        "size": 6330,
+        "mode": 420
+      },
+      {
+        "path": "docs/evidence/m1-winston/report.sarif",
+        "size": 9578,
+        "mode": 420
+      },
+      {
+        "path": "docs/evidence/m1-winston/SHA256SUMS",
+        "size": 398,
+        "mode": 420
+      },
+      {
+        "path": "docs/evidence/m1-winston/vocabulary.json",
+        "size": 250,
+        "mode": 420
+      },
+      {
+        "path": "docs/licensing-boundary.md",
+        "size": 806,
+        "mode": 420
+      },
+      {
+        "path": "docs/m1-documentation-consumer.md",
+        "size": 6004,
+        "mode": 420
+      },
+      {
+        "path": "docs/philosophy.md",
+        "size": 780,
+        "mode": 420
+      },
+      {
+        "path": "docs/rule-catalog.md",
+        "size": 2736,
+        "mode": 420
+      },
+      {
+        "path": "docs/scope-and-profiles.md",
+        "size": 783,
+        "mode": 420
+      },
+      {
+        "path": "eslint.config.js",
+        "size": 311,
+        "mode": 420
+      },
+      {
+        "path": "examples/minimal/.steassay.json",
+        "size": 379,
+        "mode": 420
+      },
+      {
+        "path": "examples/minimal/docs/guide.md",
+        "size": 96,
+        "mode": 420
+      },
+      {
+        "path": "examples/minimal/glossary.json",
+        "size": 76,
+        "mode": 420
+      },
+      {
+        "path": "examples/minimal/vocabulary.json",
+        "size": 231,
+        "mode": 420
+      },
+      {
+        "path": "package.json",
+        "size": 1000,
+        "mode": 420
+      },
+      {
+        "path": "src/analyzer.ts",
+        "size": 10721,
+        "mode": 420
+      },
+      {
+        "path": "src/canonical.ts",
+        "size": 760,
+        "mode": 420
+      },
+      {
+        "path": "src/catalog.ts",
+        "size": 4193,
+        "mode": 420
+      },
+      {
+        "path": "src/cli.ts",
+        "size": 2521,
+        "mode": 420
+      },
+      {
+        "path": "src/evidence.ts",
+        "size": 12056,
+        "mode": 420
+      },
+      {
+        "path": "src/model.ts",
+        "size": 4726,
+        "mode": 420
+      },
+      {
+        "path": "src/policy.ts",
+        "size": 8684,
+        "mode": 420
+      },
+      {
+        "path": "src/scope.ts",
+        "size": 3387,
+        "mode": 420
+      },
+      {
+        "path": "tests/assay.test.ts",
+        "size": 10411,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/good/.steassay.json",
+        "size": 378,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/good/docs/excluded/private.md",
+        "size": 21,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/good/docs/guide.md",
+        "size": 85,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/good/glossary.json",
+        "size": 70,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/good/vocabulary.json",
+        "size": 235,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/rules/STE-S01/bad.md",
+        "size": 82,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/rules/STE-S01/good.md",
+        "size": 24,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/rules/STE-S02/bad.md",
+        "size": 16,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/rules/STE-S02/good.md",
+        "size": 30,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/rules/STE-S03/bad.md",
+        "size": 40,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/rules/STE-S03/good.md",
+        "size": 40,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/rules/STE-S04/bad.md",
+        "size": 36,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/rules/STE-S04/good.md",
+        "size": 36,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/rules/STE-S05/bad.md",
+        "size": 32,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/rules/STE-S05/good.md",
+        "size": 40,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/rules/STE-S06/bad.md",
+        "size": 37,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/rules/STE-S06/good.md",
+        "size": 26,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/rules/STE-S08/bad.md",
+        "size": 31,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/rules/STE-S08/good.md",
+        "size": 28,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/rules/STE-S09/bad.md",
+        "size": 44,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/rules/STE-S09/good.md",
+        "size": 47,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/rules/STE-S10/bad.md",
+        "size": 28,
+        "mode": 420
+      },
+      {
+        "path": "tests/fixtures/rules/STE-S10/good.md",
+        "size": 29,
+        "mode": 420
+      },
+      {
+        "path": "tsconfig.build.json",
+        "size": 125,
+        "mode": 420
+      },
+      {
+        "path": "tsconfig.json",
+        "size": 303,
+        "mode": 420
+      }
+    ]
+  },
+  "tarball": {
+    "sha256": "a39446496951b4e377dfd3ec208814dc2c20872e62b28a94f0461cd97b1db164",
+    "sha1": "ca3823be6a0ca856f6cf1c7b0e81126a4b7d98d8",
+    "npmShasum": "ca3823be6a0ca856f6cf1c7b0e81126a4b7d98d8",
+    "integrity": "sha512-YyswWBez4yKc7L8vRjm9jsNc4b51x3DgCVQd0XbAMARi+viQpxTFWshPqeyR1A8c9BJhltikgGzChx8eEY83Dg=="
+  }
+}
