@@ -17,7 +17,7 @@ ste-assay verify <path>
 ste-assay explain <rule-id>
 ```
 
-`doctor` checks toolchain/configuration readiness and makes no compliance claim. `scan` performs static Markdown observation; if policy requires commands, they are explicitly `NotRun` and the result is non-authoritative. `verify` runs required commands and records their status, exit code, and output digest. Every command produces a readable terminal report plus canonical JSON and SARIF in `<path>/.ste-assay/`.
+`doctor` checks toolchain/configuration readiness and makes no compliance claim. `scan` performs static Markdown observation; if policy requires commands, they are explicitly `NotRun` and the result is non-authoritative. `verify` runs required commands and records their status, exit code, and output digest. Each configured command is executed through the platform shell in the target root, so the policy is trusted executable input and must be reviewed before `verify` is run. Every command produces a readable terminal report plus canonical JSON and SARIF in `<path>/.ste-assay/`.
 
 ## Quick start
 

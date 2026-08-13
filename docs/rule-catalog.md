@@ -15,3 +15,7 @@ Every rule is evaluated only in scanned Markdown prose, except the heading check
 | STE-S10 | Advisory | Project vocabulary names noncanonical alternatives and a preferred term; alternatives are matched as configured data.                     | No configured alternative occurrence.                     |
 
 The catalogue is not a statement of full ASD-STE100 compliance. No heuristic in this table can block a build.
+
+## STE-S01 sentence-boundary limitation
+
+For this rule, a parsed prose sentence ends at one or more period, exclamation-mark, or question-mark characters. The tokenizer intentionally has no abbreviation, version, URL, decimal, or natural-language exceptions. Consequently, `U.S.`, `e.g.`, `1.2.3`, `example.com`, and `3.14` can split a prose span before its total word count reaches the configured limit. This can produce a false negative relative to a human reading the entire span as one sentence. The rule remains a deterministic measurement of this documented tokenizer, not a general sentence parser.
