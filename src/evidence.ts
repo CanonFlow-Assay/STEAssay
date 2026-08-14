@@ -18,7 +18,7 @@ import type {
 import { ConfigurationError, loadConfiguration } from "./policy.js";
 import { observeScope, resolveTarget } from "./scope.js";
 
-const TOOL_VERSION = "0.1.0";
+const TOOL_VERSION = "0.2.0";
 
 const emptyScope = (): ScopeObservation => ({
   scannedPaths: [],
