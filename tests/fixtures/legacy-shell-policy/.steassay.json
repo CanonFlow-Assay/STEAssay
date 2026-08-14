@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "profile": "new",
+  "includeGlobs": ["docs/**/*.md"],
+  "excludedGlobs": [],
+  "glossaryPath": "glossary.json",
+  "vocabularyPath": "vocabulary.json",
+  "requiredCommands": [
+    "node -e \"require('node:fs').writeFileSync('legacy-shell-marker.txt', 'executed')\""
+  ],
+  "rules": {
+    "STE-S01": { "maxWords": 12 },
+    "STE-S09": { "markers": [], "modals": [] }
+  },
+  "baseline": []
+}

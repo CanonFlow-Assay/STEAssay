@@ -32,14 +32,17 @@ export interface RequirementRule {
   readonly modals: readonly string[];
 }
 
+/** A process invocation, represented without shell parsing or interpolation. */
+export type RequiredCommand = readonly [string, ...string[]];
+
 export interface Policy {
-  readonly version: 1;
+  readonly version: 2;
   readonly profile: "new" | "converge";
   readonly includeGlobs: readonly string[];
   readonly excludedGlobs: readonly string[];
   readonly glossaryPath: string;
   readonly vocabularyPath: string;
-  readonly requiredCommands: readonly string[];
+  readonly requiredCommands: readonly RequiredCommand[];
   readonly rules: {
     readonly "STE-S01": SentenceLimitRule;
     readonly "STE-S09": RequirementRule;
@@ -92,14 +95,15 @@ export interface ScopeObservation {
 export type CommandStatus = "NotRun" | "Passed" | "Failed" | "Unavailable";
 
 export interface CommandReceipt {
-  readonly command: string;
+  readonly executable: string;
+  readonly arguments: readonly string[];
   readonly status: CommandStatus;
   readonly exitCode: number | null;
   readonly outputDigest: string | null;
 }
 
 export interface Receipt {
-  readonly schemaVersion: 1;
+  readonly schemaVersion: 2;
   readonly command: "doctor" | "scan" | "verify";
   readonly generatedAt: string;
   readonly tool: { readonly name: "ste-assay"; readonly version: string };

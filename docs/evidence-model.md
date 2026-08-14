@@ -1,6 +1,6 @@
 # Evidence model
 
-`verify` writes canonical `receipt.json` and SARIF. The receipt binds the tool version; Node/npm runtime; source-content digest; policy, glossary, vocabulary, and rule-catalog digests; scanned/excluded/unmatched/unloaded scope; ordered findings and digest; required commands with status, exit code, and output digest; verdict; authority flag; and explicit limitations.
+`verify` writes canonical `receipt.json` and SARIF. The receipt binds the tool version; Node/npm runtime; source-content digest; policy, glossary, vocabulary, and rule-catalog digests; scanned/excluded/unmatched/unloaded scope; ordered findings and digest; required command executable/argument vectors with status, exit code, and output digest; verdict; authority flag; and explicit limitations. Receipt schema version 2 identifies the structured command representation.
 
 Set `STE_ASSAY_CLOCK` to an ISO-8601 instant for reproducible fixture receipts. JSON keys use canonical ordering; arrays that represent observations are sorted deterministically. SARIF results use the same finding order.
 
@@ -8,4 +8,15 @@ Required command statuses are `NotRun`, `Passed`, `Failed`, or `Unavailable`. `s
 
 ## Required-command trust boundary
 
-`verify` invokes each policy `requiredCommands` entry as a complete command string through the platform shell, with the target root as its working directory. This supports ordinary project commands with arguments, quoting, chaining, and redirection; it also means that a repository-controlled policy can execute arbitrary shell syntax and any program available to the invoking user. The policy and its referenced files are therefore trusted executable input. STEAssay does not sandbox these commands. The receipt preserves the configured command string plus its status, exit code, and output digest, but it cannot make an untrusted policy safe.
+`verify` invokes each policy version 2 `requiredCommands` entry as an explicit
+executable and literal argument vector, with the target root as its working
+directory. It uses no shell: shell quoting, chaining, redirection, expansion,
+and substitution are passed as ordinary argument text and cannot alter process
+selection. The receipt preserves the exact executable and ordered argument
+array, plus status, exit code, and output digest.
+
+This is a narrower execution model, not a sandbox. A repository-controlled
+policy can still choose any executable available to the invoking user and pass
+it arbitrary arguments. Treat policy changes with the same review level as CI
+workflow changes; do not execute fork-controlled policy with repository secrets.
+Version 1 command-string policies are rejected and never executed.
