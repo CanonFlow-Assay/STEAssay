@@ -24,10 +24,10 @@
   "scripts": {
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "lint": "eslint src tests/*.ts",
+    "lint": "eslint src playground tests/*.ts",
     "typecheck": "tsc --noEmit",
-    "build": "tsc -p tsconfig.build.json",
-    "test": "npm run build && node --test dist/tests/assay.test.js",
+    "build": "tsc -p tsconfig.build.json && node scripts/build-playground.mjs",
+    "test": "npm run build && node --test dist/tests/assay.test.js dist/tests/playground.test.js",
     "verify": "npm run format:check && npm run lint && npm run typecheck && npm test && npm run build"
   },
   "dependencies": {
