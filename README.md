@@ -35,6 +35,8 @@ See [examples/minimal](examples/minimal) for a complete local policy, glossary, 
 
 The playground can apply only configured deprecated-term and terminology replacements. It never guesses corrections for sentence length, headings, passive voice, or requirement language, and its preview does not certify ASD-STE100 compliance.
 
+Bundled demonstration specimens include compliant and offender guides, abbreviation and requirement examples, terminology migration, sentence-length policy comparison, and Unicode term boundaries. Each specimen identifies its expected local preview result and carries the source note “Bundled demonstration specimen. Not an external compliance claim.” User edits remain local to the browser; **Reset to example policy** restores the selected bundled specimen. The simple punctuation tokenizer has known sentence-boundary limits for abbreviations, URLs, versions, and decimals.
+
 ## What it checks
 
 Blocking rules are deterministic syntax or configured-data checks: sentence word count, empty headings, undeclared uppercase abbreviations, configured banned terms, and configured deprecated terms. Passive-voice, multiple imperative actions, modal use, and terminology preference checks are advisory only. See [the rule catalogue](docs/rule-catalog.md).

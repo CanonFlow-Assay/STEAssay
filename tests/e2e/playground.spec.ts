@@ -1,11 +1,12 @@
 import { expect, test, type Page } from "@playwright/test";
+import {
+  bundledExamples,
+  type PlaygroundExample,
+} from "../../playground/samples.js";
 
-const loadSample = async (
-  page: Page,
-  sample: "compliant" | "offender" | "custom",
-): Promise<void> => {
-  await page.getByLabel("Sample", { exact: true }).selectOption(sample);
-  await page.getByRole("button", { name: "Load selected sample" }).click();
+const loadExample = async (page: Page, id: string): Promise<void> => {
+  await page.getByLabel("Examples", { exact: true }).selectOption(id);
+  await page.getByRole("button", { name: "Load example" }).click();
 };
 
 const runPreview = async (page: Page): Promise<void> => {
@@ -14,6 +15,9 @@ const runPreview = async (page: Page): Promise<void> => {
 
 const findings = (page: Page) =>
   page.getByTestId("finding-list").getByRole("listitem");
+
+const expectedSummary = (example: PlaygroundExample): string =>
+  `${example.expected.ruleIds.length} findings: ${example.expected.blockingCount} blocking, ${example.expected.advisoryCount} advisory.`;
 
 const expectFindingIds = async (
   page: Page,
@@ -52,11 +56,39 @@ test("initial load uses local static assets only", async ({
   expect(activeNetworkRequests).toEqual([]);
 });
 
-test("compliant sample has no findings or safe correction action", async ({
+for (const example of bundledExamples) {
+  test(`bundled example: ${example.title}`, async ({ page }) => {
+    await page.goto("/");
+    await loadExample(page, example.id);
+    await runPreview(page);
+
+    await expect(page.getByTestId("preview-notice")).toBeVisible();
+    await expect(page.locator("#example-title")).toHaveText(example.title);
+    await expect(page.locator("#example-source-note")).toHaveText(
+      "Bundled demonstration specimen. Not an external compliance claim.",
+    );
+    await expect(page.getByTestId("expected-result")).toContainText(
+      `${example.expected.blockingCount} blocking, ${example.expected.advisoryCount} advisory.`,
+    );
+    await expect(page.getByTestId("observed-result")).toHaveText(
+      `Observed: ${expectedSummary(example)}`,
+    );
+    await expect(page.getByTestId("result-summary")).toHaveText(
+      expectedSummary(example),
+    );
+    await expect(findings(page)).toHaveCount(example.expected.ruleIds.length);
+    await expectFindingIds(page, example.expected.ruleIds);
+    await expect(page.getByTestId("playground-regression")).toHaveText(
+      "Observed result matches this bundled specimen.",
+    );
+  });
+}
+
+test("compliant installation guide has no findings or safe correction action", async ({
   page,
 }) => {
   await page.goto("/");
-  await loadSample(page, "compliant");
+  await loadExample(page, "installation-guide");
   await runPreview(page);
 
   await expect(page.getByTestId("result-summary")).toHaveText(
@@ -68,14 +100,13 @@ test("compliant sample has no findings or safe correction action", async ({
   ).toBeDisabled();
 });
 
-test("offender sample reports the expected preview findings", async ({
+test("release procedure offender reports all expected preview findings", async ({
   page,
 }) => {
   await page.goto("/");
-  await loadSample(page, "offender");
+  await loadExample(page, "release-procedure-offender");
   await runPreview(page);
 
-  await expect(page.getByTestId("preview-notice")).toBeVisible();
   await expect(page.getByTestId("result-summary")).toHaveText(
     "8 findings: 4 blocking, 4 advisory.",
   );
@@ -91,11 +122,53 @@ test("offender sample reports the expected preview findings", async ({
   ]);
 });
 
+test("loading an example changes text and policy, then reset restores both", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await loadExample(page, "release-procedure-offender");
+  const markdown = page.getByLabel("Markdown (local preview input)");
+  await expect(markdown).toHaveValue(/robust whitelist daemon/u);
+  await expect(page.getByLabel("Sentence word limit")).toHaveValue("12");
+  await expect(page.getByLabel("Banned terms, comma-separated")).toHaveValue(
+    "robust",
+  );
+
+  await loadExample(page, "api-reference-note");
+  await expect(markdown).toHaveValue(/SDK response/u);
+  await expect(page.getByLabel("Banned terms, comma-separated")).toHaveValue(
+    "",
+  );
+
+  await markdown.fill("User edits stay local.");
+  await page.getByLabel("Sentence word limit").fill("4");
+  await runPreview(page);
+  await expect(page.getByTestId("playground-regression")).toContainText(
+    "user-edited local input",
+  );
+  await page.getByRole("button", { name: "Reset to example policy" }).click();
+  await expect(markdown).toHaveValue(/The API returns an SDK response/u);
+  await expect(page.getByLabel("Sentence word limit")).toHaveValue("12");
+});
+
+test("custom text stays local and does not change a bundled source specimen", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await loadExample(page, "custom");
+  const markdown = page.getByLabel("Markdown (local preview input)");
+  await markdown.fill("User-written custom text.");
+  await runPreview(page);
+  await loadExample(page, "installation-guide");
+  await expect(markdown).toHaveValue(/# Install the tool/u);
+  await expect(markdown).not.toHaveValue(/User-written custom text/u);
+});
+
 test("safe corrections change only configured replacement terms", async ({
   page,
 }) => {
   await page.goto("/");
-  await loadSample(page, "offender");
+  await loadExample(page, "release-procedure-offender");
   await page
     .getByRole("button", { name: "Apply all safe corrections" })
     .click();
@@ -125,7 +198,7 @@ test("custom policy updates locally and reports invalid data without a crash", a
   page,
 }) => {
   await page.goto("/");
-  await loadSample(page, "custom");
+  await loadExample(page, "custom");
   await page
     .getByLabel("Markdown (local preview input)")
     .fill("The squirrel needs review.");
@@ -153,11 +226,7 @@ test("Unicode whole-term boundaries report only standalone cat", async ({
   page,
 }) => {
   await page.goto("/");
-  await loadSample(page, "custom");
-  await page.getByLabel("Banned terms, comma-separated").fill("cat");
-  await page
-    .getByLabel("Markdown (local preview input)")
-    .fill("scat catapult cat écat caté котcat catёж cat2 2cat cat_value _cat");
+  await loadExample(page, "unicode-boundary");
   await runPreview(page);
 
   await expect(findings(page).filter({ hasText: "STE-S04" })).toHaveCount(1);

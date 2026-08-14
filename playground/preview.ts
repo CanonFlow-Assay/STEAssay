@@ -29,6 +29,12 @@ export interface PreviewResult {
   readonly correctedMarkdown: string;
 }
 
+export interface ExpectedPreview {
+  readonly ruleIds: readonly string[];
+  readonly blockingCount: number;
+  readonly advisoryCount: number;
+}
+
 const correctionForDeprecated = (
   finding: ObservedFinding,
   terms: readonly DeprecatedTerm[],
@@ -168,4 +174,21 @@ export const previewMarkdown = (
       .length,
     correctedMarkdown: applySafeCorrections(markdown, policy),
   };
+};
+
+export const matchesExpectedPreview = (
+  result: PreviewResult,
+  expected: ExpectedPreview,
+): boolean => {
+  const observedRuleIds = result.findings
+    .map((finding) => finding.ruleId)
+    .sort((left, right) => left.localeCompare(right));
+  const expectedRuleIds = [...expected.ruleIds].sort((left, right) =>
+    left.localeCompare(right),
+  );
+  return (
+    result.blockingCount === expected.blockingCount &&
+    result.advisoryCount === expected.advisoryCount &&
+    JSON.stringify(observedRuleIds) === JSON.stringify(expectedRuleIds)
+  );
 };
