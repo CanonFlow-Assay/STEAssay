@@ -25,6 +25,7 @@ const findingList = byId<HTMLElement>("findings");
 const correctedPreview = byId<HTMLTextAreaElement>("corrected-preview");
 const errorMessage = byId<HTMLElement>("error-message");
 const sampleSelector = byId<HTMLSelectElement>("sample-selector");
+const applyCorrections = byId<HTMLButtonElement>("apply-corrections");
 
 const csv = (value: string): readonly string[] =>
   value
@@ -153,12 +154,15 @@ const render = (): void => {
     const result = previewMarkdown(markdown.value, policy);
     resultSummary.textContent = `${result.findings.length} findings: ${result.blockingCount} blocking, ${result.advisoryCount} advisory.`;
     correctedPreview.value = result.correctedMarkdown;
+    applyCorrections.disabled = !result.findings.some(
+      (finding) => finding.correction !== undefined,
+    );
     result.findings.forEach(appendFinding);
   } catch (error) {
     resultSummary.textContent = "Preview input could not be analyzed.";
     correctedPreview.value = "";
-    errorMessage.textContent =
-      error instanceof Error ? error.message : String(error);
+    applyCorrections.disabled = true;
+    errorMessage.textContent = `Local policy error: ${error instanceof Error ? error.message : String(error)}`;
   }
 };
 
@@ -181,7 +185,7 @@ byId<HTMLButtonElement>("load-custom").addEventListener("click", () => {
   sampleSelector.value = "custom";
   loadSample("custom");
 });
-byId<HTMLButtonElement>("apply-corrections").addEventListener("click", () => {
+applyCorrections.addEventListener("click", () => {
   try {
     markdown.value = previewMarkdown(
       markdown.value,
@@ -189,8 +193,7 @@ byId<HTMLButtonElement>("apply-corrections").addEventListener("click", () => {
     ).correctedMarkdown;
     render();
   } catch (error) {
-    errorMessage.textContent =
-      error instanceof Error ? error.message : String(error);
+    errorMessage.textContent = `Local policy error: ${error instanceof Error ? error.message : String(error)}`;
   }
 });
 byId<HTMLButtonElement>("reset").addEventListener("click", () => {

@@ -132,8 +132,8 @@ test("browser preview is deterministic and has no command-execution runtime path
     "dist/playground/app.js",
     "dist/playground/preview.js",
     "dist/playground/samples.js",
-    "dist/src/core/analyzer.js",
-    "dist/src/rules.js",
+    "dist/playground/core/analyzer.js",
+    "dist/playground/rules.js",
   ];
   const forbidden =
     /node:|child_process|spawn\(|shell\b|process\.|requiredCommands|fetch\(|XMLHttpRequest/u;

@@ -15,7 +15,9 @@
       <header>
         <p class="eyebrow">STEAssay Playground 0.1</p>
         <h1>Controlled writing preview</h1>
-        <p class="notice">Preview only — non-authoritative</p>
+        <p class="notice" data-testid="preview-notice">
+          Preview only — non-authoritative
+        </p>
         <p>
           Markdown, policy, glossary, and vocabulary remain in this browser.
           Analyzer version: <code id="analyzer-version"></code>. This page never
@@ -84,8 +86,8 @@
 
       <section aria-labelledby="findings-title">
         <h2 id="findings-title">Findings</h2>
-        <p id="result-summary"></p>
-        <ul id="findings"></ul>
+        <p id="result-summary" data-testid="result-summary"></p>
+        <ul id="findings" data-testid="finding-list"></ul>
       </section>
 
       <section>
