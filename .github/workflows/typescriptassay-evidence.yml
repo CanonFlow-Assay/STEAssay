@@ -27,7 +27,8 @@ jobs:
           node-version: 20.20.2
           cache: npm
       - run: npm ci
-      - run: sha256sum -c docs/evidence/m1-typescriptassay/SHA256SUMS
+      - run: sha256sum -c SHA256SUMS
+        working-directory: docs/evidence/m1-typescriptassay
       - run: npm run format:check
       - run: npm run lint
       - run: npm run typecheck
