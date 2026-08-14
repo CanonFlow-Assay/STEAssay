@@ -29,6 +29,12 @@ node dist/src/cli.js verify examples/minimal
 
 See [examples/minimal](examples/minimal) for a complete local policy, glossary, and vocabulary. The vocabulary is supplied by the project; STEAssay ships no ASD-STE100 dictionary, avoid list, or standard text.
 
+## Playground
+
+[Open the GitHub Pages playground](https://canonflow-assay.github.io/STEAssay/). It is a local browser preview: Markdown, custom policy, glossary, and vocabulary stay in the browser and are never uploaded or executed. The playground never runs `requiredCommands`, makes no authoritative claim, and does not replace the CLI. Only `ste-assay verify` can provide authoritative project verification when its configured scope and command evidence are complete.
+
+The playground can apply only configured deprecated-term and terminology replacements. It never guesses corrections for sentence length, headings, passive voice, or requirement language, and its preview does not certify ASD-STE100 compliance.
+
 ## What it checks
 
 Blocking rules are deterministic syntax or configured-data checks: sentence word count, empty headings, undeclared uppercase abbreviations, configured banned terms, and configured deprecated terms. Passive-voice, multiple imperative actions, modal use, and terminology preference checks are advisory only. See [the rule catalogue](docs/rule-catalog.md).

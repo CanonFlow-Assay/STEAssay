@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Local browser preview for project-owned controlled technical-writing policy."
+    />
+    <title>STEAssay Playground</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">STEAssay Playground 0.1</p>
+        <h1>Controlled writing preview</h1>
+        <p class="notice" data-testid="preview-notice">
+          Preview only — non-authoritative
+        </p>
+        <p>
+          Markdown, policy, glossary, and vocabulary remain in this browser.
+          Analyzer version: <code id="analyzer-version"></code>. This page never
+          uploads text or executes project commands.
+        </p>
+      </header>
+
+      <section class="samples" aria-label="Samples">
+        <label for="sample-selector">Sample</label>
+        <select id="sample-selector">
+          <option value="compliant">Compliant sample</option>
+          <option value="offender">Offender sample</option>
+          <option value="custom">Empty custom sample</option>
+        </select>
+        <button id="load-selected" type="button">Load selected sample</button>
+        <button id="load-custom" type="button">Load custom sample</button>
+        <button id="reset" type="button">Reset</button>
+      </section>
+
+      <section class="workspace">
+        <div>
+          <label for="markdown">Markdown (local preview input)</label>
+          <textarea id="markdown" rows="15" spellcheck="false"></textarea>
+        </div>
+        <fieldset>
+          <legend>
+            Project-owned policy and vocabulary (local preview input)
+          </legend>
+          <label for="max-words">Sentence word limit</label>
+          <input id="max-words" min="1" type="number" />
+          <label for="requirement-marker"
+            >Requirement marker terms, comma-separated</label
+          >
+          <input id="requirement-marker" type="text" />
+          <label for="requirement-modal"
+            >Requirement modal terms, comma-separated</label
+          >
+          <input id="requirement-modal" type="text" />
+          <label for="glossary">Glossary abbreviations as JSON</label>
+          <textarea id="glossary" rows="5" spellcheck="false"></textarea>
+          <label for="banned-terms">Banned terms, comma-separated</label>
+          <textarea id="banned-terms" rows="2"></textarea>
+          <label for="deprecated-terms"
+            >Deprecated terms, one per line: term =&gt; replacement</label
+          >
+          <textarea id="deprecated-terms" rows="3"></textarea>
+          <label for="terminology"
+            >Terminology, one per line: canonical =&gt; noncanonical
+            terms</label
+          >
+          <textarea id="terminology" rows="3"></textarea>
+          <label for="imperative-verbs"
+            >Imperative verbs, comma-separated</label
+          >
+          <textarea id="imperative-verbs" rows="2"></textarea>
+        </fieldset>
+      </section>
+
+      <section class="actions">
+        <button id="run-preview" type="button">Run local preview</button>
+        <button id="apply-corrections" type="button">
+          Apply all safe corrections
+        </button>
+        <p id="error-message" role="alert"></p>
+      </section>
+
+      <section aria-labelledby="findings-title">
+        <h2 id="findings-title">Findings</h2>
+        <p id="result-summary" data-testid="result-summary"></p>
+        <ul id="findings" data-testid="finding-list"></ul>
+      </section>
+
+      <section>
+        <h2>Corrected preview</h2>
+        <p>
+          Only configured deprecated-term and terminology replacements are
+          applied. Sentence length, headings, passive voice, and requirement
+          language always require manual review.
+        </p>
+        <textarea id="corrected-preview" rows="15" readonly></textarea>
+      </section>
+    </main>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

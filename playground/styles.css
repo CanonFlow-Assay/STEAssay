@@ -1,0 +1,110 @@
+:root {
+  color-scheme: light dark;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  margin: 0 auto;
+  max-width: 1120px;
+  padding: 2rem 1rem 4rem;
+}
+
+h1,
+h2 {
+  line-height: 1.2;
+}
+
+.eyebrow {
+  color: #5f6b7a;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.notice {
+  border-left: 0.35rem solid #b45309;
+  font-weight: 700;
+  padding-left: 0.8rem;
+}
+
+.samples,
+.actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin: 1.5rem 0;
+}
+
+.workspace {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+fieldset,
+textarea,
+input,
+select {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+fieldset {
+  display: grid;
+  gap: 0.5rem;
+}
+
+textarea,
+input,
+select,
+button {
+  font: inherit;
+}
+
+textarea,
+input,
+select {
+  margin-bottom: 0.7rem;
+  padding: 0.55rem;
+}
+
+button {
+  cursor: pointer;
+  padding: 0.55rem 0.8rem;
+}
+
+#error-message {
+  color: #b91c1c;
+  font-weight: 700;
+}
+
+#findings {
+  display: grid;
+  gap: 0.8rem;
+  list-style: none;
+  padding: 0;
+}
+
+.finding {
+  border-left: 0.35rem solid #64748b;
+  padding: 0.75rem 1rem;
+}
+
+.finding-blocking {
+  border-color: #b91c1c;
+}
+
+.finding-advisory {
+  border-color: #b45309;
+}
+
+code {
+  overflow-wrap: anywhere;
+}

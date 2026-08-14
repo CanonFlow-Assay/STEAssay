@@ -1,4 +1,6 @@
 dist/
 node_modules/
 .ste-assay/
+playwright-report/
+test-results/
 .DS_Store
