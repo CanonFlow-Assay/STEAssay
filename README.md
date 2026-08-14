@@ -41,6 +41,8 @@ trust limits.
 
 [Open the GitHub Pages playground](https://canonflow-assay.github.io/STEAssay/). It is a local browser preview: Markdown, custom policy, glossary, and vocabulary stay in the browser and are never uploaded or executed. The playground never runs `requiredCommands`, makes no authoritative claim, and does not replace the CLI. Only `ste-assay verify` can provide authoritative project verification when its configured scope and command evidence are complete.
 
+The dark workbench keeps Markdown and project-owned policy inputs beside severity-grouped preview findings. Its Markdown → Policy → Findings assurance stack is decorative orientation only: browser results remain local previews, never verification evidence.
+
 The playground can apply only configured deprecated-term and terminology replacements. It never guesses corrections for sentence length, headings, passive voice, or requirement language, and its preview does not certify ASD-STE100 compliance.
 
 Bundled demonstration specimens include compliant and offender guides, abbreviation and requirement examples, terminology migration, sentence-length policy comparison, and Unicode term boundaries. Each specimen identifies its expected local preview result and carries the source note “Bundled demonstration specimen. Not an external compliance claim.” User edits remain local to the browser; **Reset to example policy** restores the selected bundled specimen. The simple punctuation tokenizer has known sentence-boundary limits for abbreviations, URLs, versions, and decimals.
