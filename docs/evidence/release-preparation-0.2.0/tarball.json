@@ -1,0 +1,96 @@
+[
+  {
+    "id": "ste-assay@0.2.0",
+    "name": "ste-assay",
+    "version": "0.2.0",
+    "size": 17080,
+    "unpackedSize": 59896,
+    "shasum": "ee696868762596f1becd67f1df43e507307cddc1",
+    "integrity": "sha512-aj029e8I/4GSf20hujRLK6s459oPi+785N7ovsOCJFSCs9dJwopZkkjZSvHinrISEGVMBiPI274kP2Lg0Kl7tg==",
+    "filename": "ste-assay-0.2.0.tgz",
+    "files": [
+      {
+        "path": "CODE_OF_CONDUCT.md",
+        "size": 243,
+        "mode": 420
+      },
+      {
+        "path": "CONTRIBUTING.md",
+        "size": 640,
+        "mode": 420
+      },
+      {
+        "path": "LICENSE",
+        "size": 11357,
+        "mode": 420
+      },
+      {
+        "path": "README.md",
+        "size": 4779,
+        "mode": 420
+      },
+      {
+        "path": "SECURITY.md",
+        "size": 781,
+        "mode": 420
+      },
+      {
+        "path": "dist/src/analyzer.js",
+        "size": 511,
+        "mode": 420
+      },
+      {
+        "path": "dist/src/canonical.js",
+        "size": 656,
+        "mode": 420
+      },
+      {
+        "path": "dist/src/catalog.js",
+        "size": 215,
+        "mode": 420
+      },
+      {
+        "path": "dist/src/cli.js",
+        "size": 2466,
+        "mode": 420
+      },
+      {
+        "path": "dist/src/core/analyzer.js",
+        "size": 9340,
+        "mode": 420
+      },
+      {
+        "path": "dist/src/evidence.js",
+        "size": 11552,
+        "mode": 420
+      },
+      {
+        "path": "dist/src/model.js",
+        "size": 11,
+        "mode": 420
+      },
+      {
+        "path": "dist/src/policy.js",
+        "size": 9112,
+        "mode": 420
+      },
+      {
+        "path": "dist/src/rules.js",
+        "size": 3865,
+        "mode": 420
+      },
+      {
+        "path": "dist/src/scope.js",
+        "size": 3065,
+        "mode": 420
+      },
+      {
+        "path": "package.json",
+        "size": 1303,
+        "mode": 420
+      }
+    ],
+    "entryCount": 16,
+    "bundled": []
+  }
+]

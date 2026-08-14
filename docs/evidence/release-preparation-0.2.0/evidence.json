@@ -1,0 +1,112 @@
+{
+  "schemaVersion": "ste-assay-release-preparation/0.2",
+  "generatedAt": "2026-08-14T11:00:52Z",
+  "baseMain": "868488458bfdbd999ccde555a4176bf328b0f897",
+  "artifactBuildCommit": "5eb146ebf80367ccd996a8a9e0ff27cae659dd59",
+  "sourceCode": {
+    "baseRevision": "868488458bfdbd999ccde555a4176bf328b0f897",
+    "artifactBuildRevision": "5eb146ebf80367ccd996a8a9e0ff27cae659dd59",
+    "changeFromBase": "The release branch changes package.json/package-lock.json to 0.2.0 and repairs the receipt/SARIF tool version to report 0.2.0."
+  },
+  "toolchain": {
+    "node": "v20.20.2",
+    "npm": "10.8.2",
+    "packageLockSha256": "15256d17f6098ece7788938a286324c608be7392e521ca60623fccf4109d1c9c"
+  },
+  "repositoryChecks": [
+    { "command": "npm ci", "exitCode": 0 },
+    { "command": "npm run format:check", "exitCode": 0 },
+    { "command": "npm run lint", "exitCode": 0 },
+    { "command": "npm run typecheck", "exitCode": 0 },
+    { "command": "npm test", "exitCode": 0, "detail": "45/45 tests passed" },
+    { "command": "npm run build", "exitCode": 0 },
+    { "command": "npm run test:playwright", "exitCode": 0, "detail": "16/16 tests passed" }
+  ],
+  "npmPack": {
+    "name": "ste-assay",
+    "version": "0.2.0",
+    "filename": "ste-assay-0.2.0.tgz",
+    "size": 17080,
+    "unpackedSize": 59896,
+    "fileCount": 16,
+    "sha256": "d8a4e4987dd0669607a7540075302cc1325e07750cadb8444047646e8eb646fc",
+    "sha1": "ee696868762596f1becd67f1df43e507307cddc1",
+    "npmShasum": "ee696868762596f1becd67f1df43e507307cddc1",
+    "integrity": "sha512-aj029e8I/4GSf20hujRLK6s459oPi+785N7ovsOCJFSCs9dJwopZkkjZSvHinrISEGVMBiPI274kP2Lg0Kl7tg==",
+    "publishable": true,
+    "fileManifest": "tarball.json"
+  },
+  "installedTarballExercise": {
+    "installCommand": "npm install --ignore-scripts <exact tarball>",
+    "installedPackageVersion": "0.2.0",
+    "v2Fixture": {
+      "policyVersion": 2,
+      "policySha256": "3c012de01d2dfe1ee68ec5b1b1fa8a8637bbcb4ac9babd742e908896b31a6f08",
+      "glossarySha256": "07f70dc42f2572df47c8c4592de5a16084a2ed1f43becbad689da1c73944b9de",
+      "vocabularySha256": "b33037b8d4d3a87990719b46a190e487714fadb9fd58c04dc1b17f2d10b293ca",
+      "commands": {
+        "help": {
+          "command": "ste-assay --help",
+          "exitCode": 0
+        },
+        "doctor": {
+          "command": "ste-assay doctor <v2 fixture>",
+          "exitCode": 0,
+          "verdict": "Inconclusive",
+          "authoritative": false,
+          "receiptSha256": "e68f8dcf495c8c4f1132335c6bf5cdf2a0f0fa3704dd8f68542d4986ced5782c",
+          "sarifSha256": "306ef4f207901cb21097886cfeffff892483452e9ed08197cf6cad6a689e6a67"
+        },
+        "scan": {
+          "command": "ste-assay scan <v2 fixture>",
+          "exitCode": 2,
+          "verdict": "Inconclusive",
+          "authoritative": false,
+          "requiredCommandStatus": "NotRun",
+          "receiptSha256": "f7ff3f7a8bf0c12ea118e136aed1e024d6cc716061372b1ab2a316771864ab83",
+          "sarifSha256": "306ef4f207901cb21097886cfeffff892483452e9ed08197cf6cad6a689e6a67"
+        },
+        "verify": {
+          "command": "ste-assay verify <v2 fixture>",
+          "exitCode": 0,
+          "verdict": "Pass",
+          "authoritative": true,
+          "toolVersion": "0.2.0",
+          "receiptSchemaVersion": 2,
+          "requiredCommand": {
+            "executable": "node",
+            "arguments": ["--version"],
+            "status": "Passed"
+          },
+          "receiptSha256": "891f72bc3675906b3368a556f2f23126e6cb97e3d3ca6673af0ee5652d62786b",
+          "sarifSha256": "306ef4f207901cb21097886cfeffff892483452e9ed08197cf6cad6a689e6a67"
+        }
+      }
+    },
+    "v1FailClosedFixture": {
+      "policyVersion": 1,
+      "command": "ste-assay verify <v1 marker-writing fixture>",
+      "exitCode": 2,
+      "verdict": "Inconclusive",
+      "authoritative": false,
+      "markerExistsAfterRun": false,
+      "receiptSha256": "d340ed91ce3a30f9da1a88890181ca79a7f6829043868e35b52c48f288d5c1a9",
+      "sarifSha256": "306ef4f207901cb21097886cfeffff892483452e9ed08197cf6cad6a689e6a67",
+      "limitation": "policy.version 1 uses legacy shell command strings and is not executed. Migrate to policy.version 2 with requiredCommands entries such as [\"npm\", \"run\", \"test\"]."
+    }
+  },
+  "assertions": {
+    "tarballInstalledFromExactRecordedFile": true,
+    "helpExitsSuccessfully": true,
+    "doctorMakesNoComplianceClaim": true,
+    "scanIsNonAuthoritativeWhenRequiredCommandIsNotRun": true,
+    "v2VerifyIsAuthoritativePass": true,
+    "v1PolicyFailsClosedWithoutExecution": true,
+    "releaseEvidenceCommitIsExcludedFromPackageAllowlist": true
+  },
+  "limitations": [
+    "This evidence proves only the artifact-build commit tarball under the recorded Node/npm toolchain and disposable fixtures.",
+    "The final evidence-only commit is excluded by the package files allowlist; a clean final-main pack must match the recorded SHA-256 before any publish decision.",
+    "No npm publication, tag, GitHub release, rule change, or automatic rewriting occurred in this preparation slice."
+  ]
+}

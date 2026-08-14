@@ -168,6 +168,7 @@ test("required commands preserve literal argv and do not interpolate shell synta
     const receipt = result.receipt.requiredCommands[0];
     assert.equal(result.receipt.verdict, "Pass");
     assert.equal(result.receipt.schemaVersion, 2);
+    assert.equal(result.receipt.tool.version, "0.2.0");
     assert.equal(receipt?.executable, process.execPath);
     assert.deepEqual(receipt?.arguments, command.slice(1));
     assert.equal(receipt?.status, "Passed");

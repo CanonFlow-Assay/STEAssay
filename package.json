@@ -1,6 +1,6 @@
 {
   "name": "ste-assay",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Deterministic verifier for mechanically decidable controlled technical writing policy",
   "license": "Apache-2.0",
   "private": false,
