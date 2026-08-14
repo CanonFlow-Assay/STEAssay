@@ -1,1 +1,17 @@
-docs/evidence/**
+# Evidence artifacts are canonical or tool-produced bytes covered by SHA256SUMS.
+# Keep only those files outside formatting so a formatting pass cannot invalidate
+# a recorded receipt, SARIF payload, policy, or replay manifest.
+docs/evidence/m1-winston/glossary.json
+docs/evidence/m1-winston/policy.json
+docs/evidence/m1-winston/receipt.json
+docs/evidence/m1-winston/report.sarif
+docs/evidence/m1-winston/vocabulary.json
+docs/evidence/release-preparation-0.1.0/evidence.json
+docs/evidence/release-preparation-0.1.0/tarball.json
+docs/evidence/m1-typescriptassay/adversarial-results.json
+docs/evidence/m1-typescriptassay/policy.json
+docs/evidence/m1-typescriptassay/receipt.json
+docs/evidence/m1-typescriptassay/report.sarif
+docs/evidence/m1-typescriptassay/rule-catalog.json
+docs/evidence/m1-typescriptassay/scope-manifest.json
+docs/evidence/m1-typescriptassay/toolchain-manifest.json

@@ -1,0 +1,241 @@
+{
+  "baselineSourceContentDigest": "eb3e5dd892ee333ba14b1bf83721e261c7ddf2d76beae6ea144fe7b3f6472283",
+  "results": [
+    {
+      "authoritative": false,
+      "case": "invalid-policy",
+      "exitCode": 2,
+      "requiredCommandStatuses": [],
+      "scopeComplete": false,
+      "sourceContentDigest": null,
+      "unbaselinedBlockingRuleIds": [],
+      "verdict": {
+        "error": "policy.profile must be new or converge",
+        "kind": "ToolFailure"
+      }
+    },
+    {
+      "authoritative": false,
+      "case": "missing-selected-source",
+      "exitCode": 2,
+      "requiredCommandStatuses": [
+        {
+          "command": "npm run build",
+          "exitCode": null,
+          "status": "not-run"
+        },
+        {
+          "command": "npm run format:check",
+          "exitCode": null,
+          "status": "not-run"
+        },
+        {
+          "command": "npm run lint",
+          "exitCode": null,
+          "status": "not-run"
+        },
+        {
+          "command": "npm run test:playwright",
+          "exitCode": null,
+          "status": "not-run"
+        },
+        {
+          "command": "npm run typecheck",
+          "exitCode": null,
+          "status": "not-run"
+        },
+        {
+          "command": "npm test",
+          "exitCode": null,
+          "status": "not-run"
+        }
+      ],
+      "scopeComplete": false,
+      "sourceContentDigest": "379373678d80352909eb1d0709bf11776becd0ff20fd0cf563fe5f965c49c84b",
+      "unbaselinedBlockingRuleIds": [
+        "TSA-B02"
+      ],
+      "verdict": {
+        "error": "src/analyzer.ts: TS2307 Cannot find module './core/analyzer.js' or its corresponding type declarations.; src/analyzer.ts: TS2307 Cannot find module './core/analyzer.js' or its corresponding type declarations.; src/analyzer.ts: TS2307 Cannot find module './core/analyzer.js' or its corresponding type declarations.; src/evidence.ts: TS18046 'error' is of type 'unknown'.; playground/preview.ts: TS2307 Cannot find module '../src/core/analyzer.js' or its corresponding type declarations.; playground/preview.ts: TS2339 Property 'ruleId' does not exist on type 'PreviewFinding'.; playground/app.ts: TS2339 Property 'severity' does not exist on type 'PreviewFinding'.; playground/app.ts: TS2339 Property 'ruleId' does not exist on type 'PreviewFinding'.; playground/app.ts: TS2339 Property 'severity' does not exist on type 'PreviewFinding'.; playground/app.ts: TS2339 Property 'position' does not exist on type 'PreviewFinding'.; playground/app.ts: TS2339 Property 'position' does not exist on type 'PreviewFinding'.; playground/app.ts: TS2339 Property 'message' does not exist on type 'PreviewFinding'.; tests/playground.test.ts: TS2307 Cannot find module '../src/core/analyzer.js' or its corresponding type declarations.; tests/playground.test.ts: TS2339 Property 'ruleId' does not exist on type 'PreviewFinding'.; tests/playground.test.ts: TS2339 Property 'ruleId' does not exist on type 'PreviewFinding'.; tests/playground.test.ts: TS2339 Property 'ruleId' does not exist on type 'PreviewFinding'.; tests/playground.test.ts: TS2339 Property 'severity' does not exist on type 'PreviewFinding'.; tests/playground.test.ts: TS2339 Property 'message' does not exist on type 'PreviewFinding'.; tests/playground.test.ts: TS2339 Property 'path' does not exist on type 'PreviewFinding'.; tests/playground.test.ts: TS2339 Property 'position' does not exist on type 'PreviewFinding'.; tests/playground.test.ts: TS2339 Property 'ruleId' does not exist on type 'PreviewFinding'.",
+        "kind": "ToolFailure"
+      }
+    },
+    {
+      "authoritative": false,
+      "case": "missing-target",
+      "exitCode": 2,
+      "requiredCommandStatuses": [],
+      "scopeComplete": null,
+      "sourceContentDigest": null,
+      "unbaselinedBlockingRuleIds": [],
+      "verdict": {
+        "error": "No .tsassay.json found for target /tmp/steassay-typescriptassay-probes.UFFBH4/missing-target",
+        "kind": "ToolFailure"
+      }
+    },
+    {
+      "authoritative": false,
+      "case": "unrun-required-commands",
+      "exitCode": 2,
+      "requiredCommandStatuses": [
+        {
+          "command": "npm run build",
+          "exitCode": null,
+          "status": "not-run"
+        },
+        {
+          "command": "npm run format:check",
+          "exitCode": null,
+          "status": "not-run"
+        },
+        {
+          "command": "npm run lint",
+          "exitCode": null,
+          "status": "not-run"
+        },
+        {
+          "command": "npm run test:playwright",
+          "exitCode": null,
+          "status": "not-run"
+        },
+        {
+          "command": "npm run typecheck",
+          "exitCode": null,
+          "status": "not-run"
+        },
+        {
+          "command": "npm test",
+          "exitCode": null,
+          "status": "not-run"
+        }
+      ],
+      "scopeComplete": true,
+      "sourceContentDigest": "eb3e5dd892ee333ba14b1bf83721e261c7ddf2d76beae6ea144fe7b3f6472283",
+      "unbaselinedBlockingRuleIds": [],
+      "verdict": {
+        "kind": "Inconclusive",
+        "reason": "scan does not execute required command evidence."
+      }
+    },
+    {
+      "authoritative": false,
+      "case": "incomplete-glob",
+      "exitCode": 2,
+      "requiredCommandStatuses": [
+        {
+          "command": "npm run build",
+          "exitCode": 0,
+          "status": "passed"
+        },
+        {
+          "command": "npm run format:check",
+          "exitCode": 0,
+          "status": "passed"
+        },
+        {
+          "command": "npm run lint",
+          "exitCode": 0,
+          "status": "passed"
+        },
+        {
+          "command": "npm run test:playwright",
+          "exitCode": 1,
+          "status": "failed"
+        },
+        {
+          "command": "npm run typecheck",
+          "exitCode": 0,
+          "status": "passed"
+        },
+        {
+          "command": "npm test",
+          "exitCode": 0,
+          "status": "passed"
+        }
+      ],
+      "scopeComplete": false,
+      "sourceContentDigest": "eb3e5dd892ee333ba14b1bf83721e261c7ddf2d76beae6ea144fe7b3f6472283",
+      "unbaselinedBlockingRuleIds": [],
+      "verdict": {
+        "kind": "Inconclusive",
+        "reason": "Requested source scope was not completely observed."
+      }
+    },
+    {
+      "authoritative": false,
+      "case": "changed-source-after-receipt",
+      "exitCode": 1,
+      "requiredCommandStatuses": [
+        {
+          "command": "npm run build",
+          "exitCode": 0,
+          "status": "passed"
+        },
+        {
+          "command": "npm run format:check",
+          "exitCode": 0,
+          "status": "passed"
+        },
+        {
+          "command": "npm run lint",
+          "exitCode": 0,
+          "status": "passed"
+        },
+        {
+          "command": "npm run test:playwright",
+          "exitCode": 0,
+          "status": "passed"
+        },
+        {
+          "command": "npm run typecheck",
+          "exitCode": 0,
+          "status": "passed"
+        },
+        {
+          "command": "npm test",
+          "exitCode": 0,
+          "status": "passed"
+        }
+      ],
+      "scopeComplete": true,
+      "sourceContentDigest": "bc8cc119b0c4ffa4e2f0ce4834334c05de9620f9e4414d48f3113ee174efdae1",
+      "unbaselinedBlockingRuleIds": [
+        "TSA-D01"
+      ],
+      "verdict": {
+        "findings": [
+          {
+            "baseline": false,
+            "column": 3,
+            "fingerprint": "c6c20637e60e22acfaa304922545367e751f2daa8a7a511f192f87b54b2ef9ed",
+            "line": 380,
+            "message": "Throw is forbidden in configured domain paths.",
+            "path": "src/core/analyzer.ts",
+            "ruleId": "TSA-D01",
+            "severity": "error"
+          }
+        ],
+        "kind": "Fail"
+      }
+    },
+    {
+      "authoritative": false,
+      "case": "unavailable-required-command",
+      "exitCode": 2,
+      "requiredCommandStatuses": [
+        {
+          "command": "typescript-assay-m1-command-that-does-not-exist",
+          "exitCode": 127,
+          "status": "tool-failure"
+        }
+      ],
+      "scopeComplete": true,
+      "sourceContentDigest": "eb3e5dd892ee333ba14b1bf83721e261c7ddf2d76beae6ea144fe7b3f6472283",
+      "unbaselinedBlockingRuleIds": [],
+      "verdict": {
+        "error": "Required command failed to execute: typescript-assay-m1-command-that-does-not-exist",
+        "kind": "ToolFailure"
+      }
+    }
+  ]
+}

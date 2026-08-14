@@ -1,0 +1,203 @@
+{
+  "schemaVersion": "ts-assay-policy/0.1",
+  "profile": "converge",
+  "domainGlobs": ["src/core/**/*.ts"],
+  "boundaryGlobs": ["src/**/*.ts", "playground/**/*.ts", "tests/**/*.ts"],
+  "excludedGlobs": [
+    "dist/**",
+    "node_modules/**",
+    ".ste-assay/**",
+    "playground/**/*.js",
+    "tests/fixtures/**",
+    "**/*.tgz"
+  ],
+  "requiredCommands": [
+    "npm run format:check",
+    "npm run lint",
+    "npm run typecheck",
+    "npm test",
+    "npm run build",
+    "npm run test:playwright"
+  ],
+  "escapeHatches": {
+    "assertions": "allow-with-receipt",
+    "nonNullAssertions": "allow-with-receipt",
+    "directives": "allow-with-receipt"
+  },
+  "baseline": [
+    {
+      "fingerprint": "fa7a6906e8f3733635f2a84be45be303a5f4a8a6c79e19a9006a4844c2e94bcd",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "4b9568d6b7eb58ab0b8116ba6ccbeadf97f8222365f9ac4b86c06767486cd93f",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "26e9d2e03ec07fb03b37f3ff0c3292baeeaf9c1c8c2bd37eab353903dae6ad29",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "ff408de156a3b22994a4ddf1d04ed5276f0307bce83654a7c1b8f8f3c7a363fa",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "65c14d7b11426bf7065a2ac33877adc454f993387df84a65f9ec15f9fb20290c",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "44c650bb502ab99bb8ad3c682d504cd4ea584567b3fda61769df026687d3f841",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "af5d5eedf688e670a3370cc94cbd8755d8de42f3839de49540505795fd6eb9ef",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "9418715b62ef29f44436c594db4fc83aab44c87b28742d748ada28f11e7e23ee",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "15c0fbe7a223bbb485806be64e73aefdc08ae964da4ca01daa7a7b9a883ad057",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "f304649f6acdd92902e95f0e7e75b7aff646db28910ed797ee66c6eb59e7c81e",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "d72773f1694c532775a347470df50f9e62b930eb95ca022bf54de79841455742",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "3ffab9c4b79567cc28656c1400265a40ca37e583fa9f78ab3fa5ec11d75611b3",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "a663760f5e25104e071113c661c026429338283dbc5c8904edcfad1465059ad4",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "39c843db2b1ba38288c8009f78a1d4b3d3ec2bcbae49c113f53d64e4a5276d6a",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "dac875dfbb89ea862f4025670d9a5ad356923bf4726376dcc618ad1c74982428",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "c8f4a3b3d90195d86a8489b6d83150a8a208ef5b05486e3b9d4bc702d358beb1",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "118414633c4b443c74cff6b5c094c0f20a1448290df7a3c7e275fbcb5f23dd5b",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "cb2b61f22514d87714362d3a5472a0652dda66c6289c447a0218e48ed5a811c2",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "d0050b59150b8ebf141d2c44a231a51820f92e905b2897bdea03fefa703701b0",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "643090c5751766f6003fdadef8dd6a0760d3dab05679d12be28e955aef6a5998",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "bb3e287fd8af1e642000dbf68c20ff23a5bac7032294c976824dae1edaaa4b29",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "b1f58c67cad8746b6fbd6e7c898c2c981e050ef1e6b7852b517cd3e6a3bdaed8",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "5732fbaadf6e567d4073cfbee878917ad2c3f2cbaea25b4da7192cfac576f13e",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "937d63ed6372372ba015cdaccd5edce649ced405d62b4998ed1631bc27615410",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "78bf5aef2a678644a71fa0f398b2dc1c03eebf7922ea961c39118e221a9130c7",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "376ff9a9379adcf379ce3601c1843eca7ce2e03886aa506d4ee60288cbc4c6da",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "23f675875fded718b395c0606a05e396e6c236b4a6135062c4ebad206c4e1f9f",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "37ad837171f383d67bfee6cde94d1d1539941d945a11fe2c0f04348b40f67301",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    },
+    {
+      "fingerprint": "83c052e0be31d3c8bf830925f099d121a09a0179fc1d66a887ea7a655697e76b",
+      "rationale": "Observed in the unmodified STEAssay source during the TypeScriptAssay M1 evidence exercise; retained as reviewed visible legacy evidence.",
+      "reviewedBy": "single-agent TypeScriptAssay M1 evidence exercise",
+      "reviewedAt": "2026-08-14"
+    }
+  ]
+}

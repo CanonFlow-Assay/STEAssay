@@ -1,0 +1,28 @@
+{
+  "assay": {
+    "cliSelfReportedVersion": "0.1.0",
+    "package": "typescript-assay",
+    "publishedVersion": "0.1.1",
+    "registryIntegrity": "sha512-iu2ecPYRDI+gXWy67nfoUyaxZKdtRG49clmdiVnWYw/0ylmxrQ7CXva6nwcYsxoSdohB0n2gi5pkLIUQGD+0dg==",
+    "registryShasum": "8cfd2cbf04d9a2d0b5fef828630f531092c21b91",
+    "ruleCatalogDigest": "e80317f92de666c51a08e10f8a357c8b1d18abacbf13fd1c39ad7f77d74b475c",
+    "tarball": "https://registry.npmjs.org/typescript-assay/-/typescript-assay-0.1.1.tgz"
+  },
+  "receipt": {
+    "findingsDigest": "febb2eb3d8de3bc9a7ad890c78b180f8cee3c9bd0fbf47ad3a1773e0fac806eb",
+    "generatedAt": "2026-08-14T09:30:00.000Z",
+    "policyDigest": "5078babed6c47e9f70445f98b683285e5332dc499e9f013a9d23f3844b1317ac",
+    "sarifDigest": "e65e1b17bd5176dc0ef4183c85dac3f9be066d95667cdbdd3e5e09fc3795d74c"
+  },
+  "runtime": {
+    "node": "v20.20.2",
+    "npm": "npm 10.8.2",
+    "typescript": "5.7.3"
+  },
+  "source": {
+    "baseRevision": "e4f914cfa25ea1fbcea79dc6146312cef906fda0",
+    "packageLockDigest": "bf9c8d8c1f81da36dd47592804f844e5c0ff617f4a583e7972089914a3cdd16f",
+    "repository": "https://github.com/CanonFlow-Assay/STEAssay",
+    "sourceContentDigest": "eb3e5dd892ee333ba14b1bf83721e261c7ddf2d76beae6ea144fe7b3f6472283"
+  }
+}
