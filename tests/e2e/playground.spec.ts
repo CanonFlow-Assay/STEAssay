@@ -56,6 +56,35 @@ test("initial load uses local static assets only", async ({
   expect(activeNetworkRequests).toEqual([]);
 });
 
+test("loads the local Material 3 dark tokens and keeps the preview boundary visible", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  const tokens = await page.evaluate(() => {
+    const style = getComputedStyle(document.documentElement);
+    return {
+      surface: style.getPropertyValue("--md-sys-color-surface").trim(),
+      surfaceContainer: style
+        .getPropertyValue("--md-sys-color-surface-container")
+        .trim(),
+      primary: style.getPropertyValue("--md-sys-color-primary").trim(),
+      onSurface: style.getPropertyValue("--md-sys-color-on-surface").trim(),
+    };
+  });
+  expect(tokens).toEqual({
+    surface: "#141218",
+    surfaceContainer: "#211f26",
+    primary: "#d0bcff",
+    onSurface: "#e6e1e5",
+  });
+  await expect(page.getByTestId("preview-notice")).toBeVisible();
+  const decoration = page.getByTestId("assurance-stack");
+  await expect(decoration).toContainText("Markdown");
+  await expect(decoration).toContainText("Policy");
+  await expect(decoration).toContainText("Findings");
+});
+
 for (const example of bundledExamples) {
   test(`bundled example: ${example.title}`, async ({ page }) => {
     await page.goto("/");
@@ -120,6 +149,45 @@ test("release procedure offender reports all expected preview findings", async (
     "STE-S09",
     "STE-S10",
   ]);
+  await expect(page.getByTestId("blocking-count")).toHaveText("4");
+  await expect(page.getByTestId("advisory-count")).toHaveText("4");
+  await expect(
+    page.getByRole("heading", { name: "Blocking findings (4)" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Advisory findings (4)" }),
+  ).toBeVisible();
+  const firstFinding = findings(page).first();
+  await expect(firstFinding).toContainText("Blocking");
+  await expect(firstFinding.locator("code")).toBeVisible();
+  await expect(firstFinding).toContainText("Manual correction:");
+});
+
+test("keyboard focus can reach inputs, actions, and observed findings", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await loadExample(page, "release-procedure-offender");
+  await runPreview(page);
+
+  const selector = page.getByLabel("Examples", { exact: true });
+  const markdown = page.getByLabel("Markdown (local preview input)");
+  const runButton = page.getByRole("button", { name: "Run local preview" });
+  const corrections = page.getByRole("button", {
+    name: "Apply all safe corrections",
+  });
+  const firstFinding = findings(page).first();
+
+  for (const target of [
+    selector,
+    markdown,
+    runButton,
+    corrections,
+    firstFinding,
+  ]) {
+    await target.focus();
+    await expect(target).toBeFocused();
+  }
 });
 
 test("loading an example changes text and policy, then reset restores both", async ({
@@ -233,4 +301,94 @@ test("Unicode whole-term boundaries report only standalone cat", async ({
   await expect(findings(page)).toContainText(
     "Configured banned term occurs: cat.",
   );
+});
+
+for (const width of [320, 768, 1440]) {
+  test(`layout has no horizontal page overflow at ${width}px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/");
+    await loadExample(page, "release-procedure-offender");
+    await runPreview(page);
+
+    const dimensions = await page.evaluate(() => ({
+      clientWidth: document.documentElement.clientWidth,
+      scrollWidth: document.documentElement.scrollWidth,
+    }));
+    expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth);
+    await expect(page.getByTestId("result-summary")).toBeVisible();
+    await expect(page.getByTestId("preview-notice")).toBeVisible();
+  });
+}
+
+test("a 200% zoom-effective viewport keeps controls inside the page", async ({
+  page,
+}) => {
+  // A 720 CSS-pixel viewport models a 1440-pixel desktop viewed at 200% zoom.
+  await page.setViewportSize({ width: 720, height: 900 });
+  await page.goto("/");
+  await loadExample(page, "release-procedure-offender");
+  await runPreview(page);
+
+  const layout = await page.evaluate(() => ({
+    clientWidth: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+    overflowingControlCount: [
+      ...document.querySelectorAll("button, input, select, textarea"),
+    ].filter(
+      (element) =>
+        element.getBoundingClientRect().right >
+        document.documentElement.clientWidth,
+    ).length,
+  }));
+  expect(layout.scrollWidth).toBeLessThanOrEqual(layout.clientWidth);
+  expect(layout.overflowingControlCount).toBe(0);
+});
+
+test("reduced motion removes transforms from the decorative assurance stack", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+
+  const decoration = page.getByTestId("assurance-stack");
+  await expect(decoration).toHaveCSS("transform", "none");
+  await expect(decoration).toHaveCSS("animation-name", "none");
+  await expect(decoration.locator(".assurance-layer").first()).toHaveCSS(
+    "transform",
+    "none",
+  );
+});
+
+test.describe("visual regression", () => {
+  test("desktop compliant state", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 960 });
+    await page.goto("/");
+    await loadExample(page, "installation-guide");
+    await runPreview(page);
+    await expect(page).toHaveScreenshot("desktop-compliant.png", {
+      fullPage: true,
+    });
+  });
+
+  test("desktop offender state", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 960 });
+    await page.goto("/");
+    await loadExample(page, "release-procedure-offender");
+    await runPreview(page);
+    await expect(page).toHaveScreenshot("desktop-offender.png", {
+      fullPage: true,
+    });
+  });
+
+  test("mobile offender state", async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 900 });
+    await page.goto("/");
+    await loadExample(page, "release-procedure-offender");
+    await runPreview(page);
+    await expect(page).toHaveScreenshot("mobile-offender.png", {
+      fullPage: true,
+    });
+  });
 });

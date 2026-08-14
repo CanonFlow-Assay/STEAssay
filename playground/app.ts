@@ -31,6 +31,8 @@ const terminology = byId<HTMLTextAreaElement>("terminology");
 const imperativeVerbs = byId<HTMLTextAreaElement>("imperative-verbs");
 const resultSummary = byId<HTMLElement>("result-summary");
 const findingList = byId<HTMLElement>("findings");
+const blockingCount = byId<HTMLElement>("blocking-count");
+const advisoryCount = byId<HTMLElement>("advisory-count");
 const correctedPreview = byId<HTMLTextAreaElement>("corrected-preview");
 const errorMessage = byId<HTMLElement>("error-message");
 const exampleSelector = byId<HTMLSelectElement>("example-selector");
@@ -42,6 +44,7 @@ const exampleLimitation = byId<HTMLElement>("example-limitation");
 const expectedResult = byId<HTMLElement>("expected-result");
 const observedResult = byId<HTMLElement>("observed-result");
 const regression = byId<HTMLElement>("playground-regression");
+const policySummary = byId<HTMLElement>("policy-summary");
 
 let activeExample: PlaygroundExample | undefined = defaultExample;
 let inputWasEdited = false;
@@ -57,6 +60,30 @@ const lines = (value: string): readonly string[] =>
     .split(/\r?\n/u)
     .map((item) => item.trim())
     .filter((item) => item !== "");
+
+const valueOrNone = (value: string): string =>
+  value.trim() === "" ? "none" : value.trim();
+
+const glossaryKeys = (): string => {
+  try {
+    const parsed = JSON.parse(glossary.value) as unknown;
+    if (
+      parsed === null ||
+      typeof parsed !== "object" ||
+      Array.isArray(parsed)
+    ) {
+      return "invalid JSON";
+    }
+    const keys = Object.keys(parsed);
+    return keys.length === 0 ? "none" : keys.join(", ");
+  } catch {
+    return "invalid JSON";
+  }
+};
+
+const updatePolicySummary = (): void => {
+  policySummary.textContent = `Limit: ${valueOrNone(maxWords.value)} words · markers: ${valueOrNone(requirementMarker.value)} · modals: ${valueOrNone(requirementModal.value)} · glossary: ${glossaryKeys()} · banned: ${valueOrNone(bannedTerms.value)} · deprecated: ${valueOrNone(deprecatedTerms.value)} · terminology: ${valueOrNone(terminology.value)} · imperatives: ${valueOrNone(imperativeVerbs.value)}`;
+};
 
 const splitPair = (
   line: string,
@@ -144,25 +171,63 @@ const writePolicy = (policy: PlaygroundPolicy): void => {
     .map((entry) => `${entry.canonical} => ${entry.inconsistent.join(", ")}`)
     .join("\n");
   imperativeVerbs.value = policy.vocabulary.imperativeVerbs.join(", ");
+  updatePolicySummary();
 };
 
 const appendFinding = (
+  parent: HTMLElement,
   finding: ReturnType<typeof previewMarkdown>["findings"][number],
 ): void => {
   const item = document.createElement("li");
   item.className = `finding finding-${finding.severity}`;
+  item.tabIndex = 0;
+  const titleRow = document.createElement("div");
+  titleRow.className = "finding-title";
+  const icon = document.createElement("span");
+  icon.className = "finding-icon";
+  icon.setAttribute("aria-hidden", "true");
+  icon.textContent = finding.severity === "blocking" ? "!" : "i";
+  const severity = document.createElement("span");
+  severity.className = "severity-label";
+  severity.textContent =
+    finding.severity === "blocking" ? "Blocking" : "Advisory";
   const title = document.createElement("strong");
-  title.textContent = `${finding.ruleId} · ${finding.severity} · line ${finding.position.line}, column ${finding.position.column}`;
+  title.textContent = `${finding.ruleId} · line ${finding.position.line}, column ${finding.position.column}`;
   const message = document.createElement("p");
+  message.className = "finding-message";
   message.textContent = finding.message;
   const excerpt = document.createElement("code");
   excerpt.textContent = finding.excerpt;
   const instruction = document.createElement("p");
+  instruction.className = "finding-instruction";
   instruction.textContent = finding.correction
     ? `Safe correction: ${finding.correction.from} → ${finding.correction.to}.`
     : `Manual correction: ${finding.manualInstruction}`;
-  item.append(title, message, excerpt, instruction);
-  findingList.append(item);
+  titleRow.append(icon, severity, title);
+  item.append(titleRow, message, excerpt, instruction);
+  parent.append(item);
+};
+
+const renderFindings = (
+  findings: ReturnType<typeof previewMarkdown>["findings"],
+): void => {
+  findingList.replaceChildren();
+  for (const severity of ["blocking", "advisory"] as const) {
+    const bySeverity = findings.filter(
+      (finding) => finding.severity === severity,
+    );
+    if (bySeverity.length === 0) continue;
+    const group = document.createElement("section");
+    group.className = `finding-group finding-group-${severity}`;
+    const heading = document.createElement("h3");
+    heading.className = "finding-group-title";
+    heading.textContent = `${severity === "blocking" ? "Blocking" : "Advisory"} findings (${bySeverity.length})`;
+    const list = document.createElement("ul");
+    list.className = "finding-items";
+    bySeverity.forEach((finding) => appendFinding(list, finding));
+    group.append(heading, list);
+    findingList.append(group);
+  }
 };
 
 const summaryFor = (
@@ -219,7 +284,6 @@ const renderComparison = (result: ReturnType<typeof previewMarkdown>): void => {
 
 const render = (): void => {
   errorMessage.textContent = "";
-  findingList.replaceChildren();
   try {
     const result = previewMarkdown(markdown.value, readPolicy());
     resultSummary.textContent = summaryFor(
@@ -228,14 +292,19 @@ const render = (): void => {
       result.advisoryCount,
     );
     correctedPreview.value = result.correctedMarkdown;
+    blockingCount.textContent = String(result.blockingCount);
+    advisoryCount.textContent = String(result.advisoryCount);
     applyCorrections.disabled = !result.findings.some(
       (finding) => finding.correction !== undefined,
     );
-    result.findings.forEach(appendFinding);
+    renderFindings(result.findings);
     renderComparison(result);
   } catch (error) {
     resultSummary.textContent = "Preview input could not be analyzed.";
     correctedPreview.value = "";
+    blockingCount.textContent = "0";
+    advisoryCount.textContent = "0";
+    findingList.replaceChildren();
     applyCorrections.disabled = true;
     observedResult.textContent =
       "Observed: preview input could not be analyzed.";
@@ -306,6 +375,7 @@ applyCorrections.addEventListener("click", () => {
 ].forEach((input) => {
   input.addEventListener("input", () => {
     inputWasEdited = true;
+    updatePolicySummary();
   });
 });
 
