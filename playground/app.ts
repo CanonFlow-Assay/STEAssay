@@ -1,9 +1,18 @@
 import {
   ANALYZER_VERSION,
+  matchesExpectedPreview,
   previewMarkdown,
   type PlaygroundPolicy,
 } from "./preview.js";
-import { compliantSample, matchingPolicy, offenderSample } from "./samples.js";
+import {
+  bundledExamples,
+  defaultExample,
+  DEMONSTRATION_SOURCE_NOTE,
+  getBundledExample,
+  matchingPolicy,
+  policyForExample,
+  type PlaygroundExample,
+} from "./samples.js";
 
 const byId = <ElementType extends HTMLElement>(id: string): ElementType => {
   const element = document.getElementById(id);
@@ -24,8 +33,18 @@ const resultSummary = byId<HTMLElement>("result-summary");
 const findingList = byId<HTMLElement>("findings");
 const correctedPreview = byId<HTMLTextAreaElement>("corrected-preview");
 const errorMessage = byId<HTMLElement>("error-message");
-const sampleSelector = byId<HTMLSelectElement>("sample-selector");
+const exampleSelector = byId<HTMLSelectElement>("example-selector");
 const applyCorrections = byId<HTMLButtonElement>("apply-corrections");
+const exampleTitle = byId<HTMLElement>("example-title");
+const exampleDescription = byId<HTMLElement>("example-description");
+const exampleSourceNote = byId<HTMLElement>("example-source-note");
+const exampleLimitation = byId<HTMLElement>("example-limitation");
+const expectedResult = byId<HTMLElement>("expected-result");
+const observedResult = byId<HTMLElement>("observed-result");
+const regression = byId<HTMLElement>("playground-regression");
+
+let activeExample: PlaygroundExample | undefined = defaultExample;
+let inputWasEdited = false;
 
 const csv = (value: string): readonly string[] =>
   value
@@ -146,60 +165,151 @@ const appendFinding = (
   findingList.append(item);
 };
 
+const summaryFor = (
+  findingCount: number,
+  blockingCount: number,
+  advisoryCount: number,
+): string =>
+  `${findingCount} findings: ${blockingCount} blocking, ${advisoryCount} advisory.`;
+
+const updateExampleDetails = (): void => {
+  if (activeExample === undefined) {
+    exampleTitle.textContent = "Empty custom sample";
+    exampleDescription.textContent =
+      "User-written Markdown and project-owned local policy input.";
+    exampleSourceNote.textContent =
+      "Custom input is local to this browser and has no bundled expected result.";
+    exampleLimitation.hidden = true;
+    expectedResult.textContent = "Expected: no bundled expected result.";
+    return;
+  }
+  exampleTitle.textContent = activeExample.title;
+  exampleDescription.textContent = activeExample.description;
+  exampleSourceNote.textContent = activeExample.sourceNote;
+  exampleLimitation.textContent = activeExample.limitation ?? "";
+  exampleLimitation.hidden = activeExample.limitation === undefined;
+  const ruleIds = activeExample.expected.ruleIds.join(", ") || "none";
+  expectedResult.textContent = `Expected: ${ruleIds}; ${activeExample.expected.blockingCount} blocking, ${activeExample.expected.advisoryCount} advisory.`;
+};
+
+const renderComparison = (result: ReturnType<typeof previewMarkdown>): void => {
+  observedResult.textContent = `Observed: ${summaryFor(
+    result.findings.length,
+    result.blockingCount,
+    result.advisoryCount,
+  )}`;
+  regression.hidden = true;
+  regression.textContent = "";
+  if (activeExample === undefined) return;
+  if (inputWasEdited) {
+    regression.textContent =
+      "Observed result uses user-edited local input. Reset to example policy to compare the bundled specimen.";
+    regression.hidden = false;
+    return;
+  }
+  if (!matchesExpectedPreview(result, activeExample.expected)) {
+    regression.textContent =
+      "Playground regression: the observed result does not match this bundled specimen.";
+    regression.hidden = false;
+    return;
+  }
+  regression.textContent = "Observed result matches this bundled specimen.";
+  regression.hidden = false;
+};
+
 const render = (): void => {
   errorMessage.textContent = "";
   findingList.replaceChildren();
   try {
-    const policy = readPolicy();
-    const result = previewMarkdown(markdown.value, policy);
-    resultSummary.textContent = `${result.findings.length} findings: ${result.blockingCount} blocking, ${result.advisoryCount} advisory.`;
+    const result = previewMarkdown(markdown.value, readPolicy());
+    resultSummary.textContent = summaryFor(
+      result.findings.length,
+      result.blockingCount,
+      result.advisoryCount,
+    );
     correctedPreview.value = result.correctedMarkdown;
     applyCorrections.disabled = !result.findings.some(
       (finding) => finding.correction !== undefined,
     );
     result.findings.forEach(appendFinding);
+    renderComparison(result);
   } catch (error) {
     resultSummary.textContent = "Preview input could not be analyzed.";
     correctedPreview.value = "";
     applyCorrections.disabled = true;
+    observedResult.textContent =
+      "Observed: preview input could not be analyzed.";
+    regression.hidden = true;
     errorMessage.textContent = `Local policy error: ${error instanceof Error ? error.message : String(error)}`;
   }
 };
 
-const loadSample = (sample: "compliant" | "offender" | "custom"): void => {
-  writePolicy(matchingPolicy());
-  markdown.value =
-    sample === "compliant"
-      ? compliantSample
-      : sample === "offender"
-        ? offenderSample
-        : "";
+const loadExample = (id: string): void => {
+  const example = getBundledExample(id);
+  activeExample = example;
+  inputWasEdited = false;
+  if (example === undefined) {
+    markdown.value = "";
+    writePolicy(matchingPolicy());
+  } else {
+    markdown.value = example.markdown;
+    writePolicy(policyForExample(example));
+  }
+  updateExampleDetails();
   render();
 };
 
+for (const example of bundledExamples) {
+  const option = document.createElement("option");
+  option.value = example.id;
+  option.textContent = example.title;
+  exampleSelector.append(option);
+}
+const customOption = document.createElement("option");
+customOption.value = "custom";
+customOption.textContent = "Empty custom sample";
+exampleSelector.append(customOption);
+
 byId<HTMLButtonElement>("run-preview").addEventListener("click", render);
-byId<HTMLButtonElement>("load-selected").addEventListener("click", () => {
-  loadSample(sampleSelector.value as "compliant" | "offender" | "custom");
+byId<HTMLButtonElement>("load-example").addEventListener("click", () => {
+  loadExample(exampleSelector.value);
 });
-byId<HTMLButtonElement>("load-custom").addEventListener("click", () => {
-  sampleSelector.value = "custom";
-  loadSample("custom");
-});
+byId<HTMLButtonElement>("reset-to-example-policy").addEventListener(
+  "click",
+  () => {
+    loadExample(exampleSelector.value);
+  },
+);
 applyCorrections.addEventListener("click", () => {
   try {
     markdown.value = previewMarkdown(
       markdown.value,
       readPolicy(),
     ).correctedMarkdown;
+    inputWasEdited = true;
     render();
   } catch (error) {
     errorMessage.textContent = `Local policy error: ${error instanceof Error ? error.message : String(error)}`;
   }
 });
-byId<HTMLButtonElement>("reset").addEventListener("click", () => {
-  sampleSelector.value = "compliant";
-  loadSample("compliant");
+
+[
+  markdown,
+  maxWords,
+  requirementMarker,
+  requirementModal,
+  glossary,
+  bannedTerms,
+  deprecatedTerms,
+  terminology,
+  imperativeVerbs,
+].forEach((input) => {
+  input.addEventListener("input", () => {
+    inputWasEdited = true;
+  });
 });
 
 byId<HTMLElement>("analyzer-version").textContent = ANALYZER_VERSION;
-loadSample("compliant");
+exampleSelector.value = defaultExample.id;
+exampleSourceNote.textContent = DEMONSTRATION_SOURCE_NOTE;
+loadExample(defaultExample.id);

@@ -6,13 +6,75 @@ import { analyzeFiles } from "../src/analyzer.js";
 import { wholeTerm } from "../src/core/analyzer.js";
 import {
   applySafeCorrections,
+  matchesExpectedPreview,
   previewMarkdown,
 } from "../playground/preview.js";
 import {
+  bundledExamples,
   compliantSample,
+  DEMONSTRATION_SOURCE_NOTE,
+  getBundledExample,
   matchingPolicy,
   offenderSample,
+  policyForExample,
 } from "../playground/samples.js";
+
+test("every bundled demonstration specimen has its documented preview result", () => {
+  assert.equal(bundledExamples.length, 8);
+  for (const example of bundledExamples) {
+    const result = previewMarkdown(example.markdown, policyForExample(example));
+    assert.deepEqual(
+      result.findings
+        .map((finding) => finding.ruleId)
+        .sort((left, right) => left.localeCompare(right)),
+      [...example.expected.ruleIds].sort((left, right) =>
+        left.localeCompare(right),
+      ),
+      example.title,
+    );
+    assert.equal(result.blockingCount, example.expected.blockingCount);
+    assert.equal(result.advisoryCount, example.expected.advisoryCount);
+    assert.equal(matchesExpectedPreview(result, example.expected), true);
+    assert.equal(example.sourceNote, DEMONSTRATION_SOURCE_NOTE);
+    assert.equal(typeof example.glossary.abbreviations, "object");
+    assert.equal(Array.isArray(example.vocabulary.bannedTerms), true);
+  }
+});
+
+test("sentence-length comparison uses identical Markdown with explicit policy limits", () => {
+  const twelveWord = getBundledExample("sentence-length-12");
+  const twentyFiveWord = getBundledExample("sentence-length-25");
+  assert.notEqual(twelveWord, undefined);
+  assert.notEqual(twentyFiveWord, undefined);
+  assert.equal(twelveWord?.markdown, twentyFiveWord?.markdown);
+  assert.equal(twelveWord?.policy.maxWords, 12);
+  assert.equal(twentyFiveWord?.policy.maxWords, 25);
+  assert.deepEqual(twelveWord?.expected.ruleIds, ["STE-S01"]);
+  assert.deepEqual(twentyFiveWord?.expected.ruleIds, []);
+  assert.match(
+    twelveWord?.limitation ?? "",
+    /Abbreviations, URLs, versions, and decimals/u,
+  );
+});
+
+test("expected preview comparison rejects a result with different observed findings", () => {
+  const installation = getBundledExample("installation-guide");
+  assert.notEqual(installation, undefined);
+  const result = previewMarkdown(
+    installation?.markdown ?? "",
+    installation === undefined
+      ? matchingPolicy()
+      : policyForExample(installation),
+  );
+  assert.equal(
+    matchesExpectedPreview(result, {
+      ruleIds: ["STE-S04"],
+      blockingCount: 1,
+      advisoryCount: 0,
+    }),
+    false,
+  );
+});
 
 test("browser preview reports no findings for the compliant sample", () => {
   const result = previewMarkdown(compliantSample, matchingPolicy());
@@ -136,7 +198,7 @@ test("browser preview is deterministic and has no command-execution runtime path
     "dist/playground/rules.js",
   ];
   const forbidden =
-    /node:|child_process|spawn\(|shell\b|process\.|requiredCommands|fetch\(|XMLHttpRequest/u;
+    /node:|child_process|spawn\(|shell\b|process\.|requiredCommands|fetch\(|XMLHttpRequest|WebSocket|EventSource|sendBeacon/u;
   for (const artifact of browserArtifacts) {
     const source = await readFile(resolve(process.cwd(), artifact), "utf8");
     assert.doesNotMatch(source, forbidden, artifact);

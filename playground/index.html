@@ -25,16 +25,25 @@
         </p>
       </header>
 
-      <section class="samples" aria-label="Samples">
-        <label for="sample-selector">Sample</label>
-        <select id="sample-selector">
-          <option value="compliant">Compliant sample</option>
-          <option value="offender">Offender sample</option>
-          <option value="custom">Empty custom sample</option>
-        </select>
-        <button id="load-selected" type="button">Load selected sample</button>
-        <button id="load-custom" type="button">Load custom sample</button>
-        <button id="reset" type="button">Reset</button>
+      <section class="samples" aria-label="Bundled examples">
+        <label for="example-selector">Examples</label>
+        <select id="example-selector"></select>
+        <button id="load-example" type="button">Load example</button>
+        <button id="reset-to-example-policy" type="button">
+          Reset to example policy
+        </button>
+      </section>
+
+      <section class="example-details" aria-labelledby="example-title">
+        <h2 id="example-title"></h2>
+        <p id="example-description"></p>
+        <p id="example-source-note"></p>
+        <p id="example-limitation"></p>
+        <div class="result-comparison" aria-live="polite">
+          <p id="expected-result" data-testid="expected-result"></p>
+          <p id="observed-result" data-testid="observed-result"></p>
+        </div>
+        <p id="playground-regression" data-testid="playground-regression"></p>
       </section>
 
       <section class="workspace">
