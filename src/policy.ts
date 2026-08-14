@@ -6,6 +6,7 @@ import type {
   Glossary,
   LoadedConfiguration,
   Policy,
+  RequiredCommand,
   Vocabulary,
 } from "./model.js";
 
@@ -40,6 +41,29 @@ const stringArray = (value: unknown, label: string): readonly string[] => {
     );
   }
   return value;
+};
+
+const requiredCommands = (value: unknown): readonly RequiredCommand[] => {
+  if (!Array.isArray(value)) {
+    throw new ConfigurationError(
+      "policy.requiredCommands must be an array of non-empty command-and-argument arrays.",
+    );
+  }
+  return value.map((command, commandIndex) => {
+    const label = `policy.requiredCommands[${commandIndex}]`;
+    if (
+      !Array.isArray(command) ||
+      command.length === 0 ||
+      command.some(
+        (argument) => typeof argument !== "string" || argument.trim() === "",
+      )
+    ) {
+      throw new ConfigurationError(
+        `${label} must be a non-empty array of non-empty strings; its first item is the executable and later items are literal arguments.`,
+      );
+    }
+    return [command[0] as string, ...(command.slice(1) as string[])];
+  });
 };
 
 const parseJson = (text: string, label: string): unknown => {
@@ -79,8 +103,13 @@ const parseBaseline = (value: unknown): readonly BaselineEntry[] => {
 
 const parsePolicy = (text: string): Policy => {
   const record = asRecord(parseJson(text, "Policy"), "Policy");
-  if (record.version !== 1) {
-    throw new ConfigurationError("policy.version must be 1.");
+  if (record.version === 1) {
+    throw new ConfigurationError(
+      'policy.version 1 uses legacy shell command strings and is not executed. Migrate to policy.version 2 with requiredCommands entries such as ["npm", "run", "test"].',
+    );
+  }
+  if (record.version !== 2) {
+    throw new ConfigurationError("policy.version must be 2.");
   }
   if (record.profile !== "new" && record.profile !== "converge") {
     throw new ConfigurationError('policy.profile must be "new" or "converge".');
@@ -99,7 +128,7 @@ const parsePolicy = (text: string): Policy => {
   }
   const requirement = asRecord(rules["STE-S09"], "policy.rules.STE-S09");
   return {
-    version: 1,
+    version: 2,
     profile: record.profile,
     includeGlobs: stringArray(record.includeGlobs, "policy.includeGlobs"),
     excludedGlobs: stringArray(
@@ -111,10 +140,7 @@ const parsePolicy = (text: string): Policy => {
       record.vocabularyPath,
       "policy.vocabularyPath",
     ),
-    requiredCommands: stringArray(
-      record.requiredCommands ?? [],
-      "policy.requiredCommands",
-    ),
+    requiredCommands: requiredCommands(record.requiredCommands ?? []),
     rules: {
       "STE-S01": { maxWords },
       "STE-S09": {

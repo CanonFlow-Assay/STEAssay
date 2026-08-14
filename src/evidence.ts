@@ -10,6 +10,7 @@ import type {
   Finding,
   LoadedConfiguration,
   Receipt,
+  RequiredCommand,
   SarifLog,
   ScopeObservation,
   VerdictKind,
@@ -60,14 +61,18 @@ const sourceDigest = (
     ),
   );
 
+const displayCommand = (command: RequiredCommand): string =>
+  canonicalJson(command);
+
 const commandReceipt = async (
-  command: string,
+  command: RequiredCommand,
   cwd: string,
 ): Promise<CommandReceipt> =>
   new Promise((resolveReceipt) => {
-    const child = spawn(command, {
+    const [executable, ...arguments_] = command;
+    const child = spawn(executable, arguments_, {
       cwd,
-      shell: true,
+      shell: false,
       stdio: ["ignore", "pipe", "pipe"],
     });
     let output = "";
@@ -79,7 +84,8 @@ const commandReceipt = async (
     });
     child.on("error", (error) => {
       resolveReceipt({
-        command,
+        executable,
+        arguments: arguments_,
         status: "Unavailable",
         exitCode: null,
         outputDigest: sha256(error.message),
@@ -89,7 +95,8 @@ const commandReceipt = async (
       const unavailable =
         code === 127 || /(?:not found|is not recognized as)/iu.test(output);
       resolveReceipt({
-        command,
+        executable,
+        arguments: arguments_,
         status: code === 0 ? "Passed" : unavailable ? "Unavailable" : "Failed",
         exitCode: code,
         outputDigest: sha256(output),
@@ -97,9 +104,12 @@ const commandReceipt = async (
     });
   });
 
-const notRun = (commands: readonly string[]): readonly CommandReceipt[] =>
+const notRun = (
+  commands: readonly RequiredCommand[],
+): readonly CommandReceipt[] =>
   commands.map((command) => ({
-    command,
+    executable: command[0],
+    arguments: command.slice(1),
     status: "NotRun",
     exitCode: null,
     outputDigest: null,
@@ -158,7 +168,7 @@ const receipt = (
 ): Receipt => {
   const findings = input.findings ?? [];
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     command,
     generatedAt: clock(),
     tool: { name: "ste-assay", version: TOOL_VERSION },
@@ -252,7 +262,7 @@ const decide = (
     for (const item of requiredCommands) {
       if (item.status !== "Passed") {
         limitations.push(
-          `Required command did not pass: ${item.command} (${item.status}).`,
+          `Required command did not pass: ${displayCommand([item.executable, ...item.arguments])} (${item.status}).`,
         );
       }
     }

@@ -154,23 +154,66 @@ test("STE-S01 sentence splitting has characterized false negatives for period-be
   }
 });
 
-test("required commands execute policy text through a shell and record its digest", async () => {
+test("required commands preserve literal argv and do not interpolate shell syntax", async () => {
   const directory = await makeProject();
   try {
     const configured = await policy(directory);
-    const first = "process.stdout.write(process.argv[1])";
-    const second = "process.stdout.write('|second')";
-    const command = `${process.execPath} -e ${JSON.stringify(first)} "alpha two" && ${process.execPath} -e ${JSON.stringify(second)}`;
+    const marker = resolve(directory, "shell-interpolation-marker.txt");
+    const injected = `literal && ${JSON.stringify(process.execPath)} -e ${JSON.stringify("require('node:fs').writeFileSync(process.argv[1], 'executed')")} ${JSON.stringify(marker)}`;
+    const command = [process.execPath, "-p", "process.argv[1]", injected];
     configured.requiredCommands = [command];
     await writePolicy(directory, configured);
 
     const result = await execute("verify", directory);
     const receipt = result.receipt.requiredCommands[0];
     assert.equal(result.receipt.verdict, "Pass");
-    assert.equal(receipt?.command, command);
+    assert.equal(result.receipt.schemaVersion, 2);
+    assert.equal(receipt?.executable, process.execPath);
+    assert.deepEqual(receipt?.arguments, command.slice(1));
     assert.equal(receipt?.status, "Passed");
     assert.equal(receipt?.exitCode, 0);
-    assert.equal(receipt?.outputDigest, sha256("alpha two|second"));
+    assert.equal(receipt?.outputDigest, sha256(`${injected}\n`));
+    await assert.rejects(readFile(marker, "utf8"));
+  } finally {
+    await cleanup(directory);
+  }
+});
+
+test("legacy shell policies and malformed command arrays cannot pass", async () => {
+  const directory = await makeProject();
+  try {
+    const configured = await policy(directory);
+    const marker = resolve(directory, "legacy-shell-marker.txt");
+    configured.version = 1;
+    configured.requiredCommands = [
+      `${process.execPath} -e ${JSON.stringify("require('node:fs').writeFileSync(process.argv[1], 'executed')")} ${JSON.stringify(marker)}`,
+    ];
+    await writePolicy(directory, configured);
+    let result = await execute("verify", directory);
+    assert.equal(result.receipt.verdict, "Inconclusive");
+    assert.equal(result.receipt.authoritative, false);
+    assert.match(
+      result.receipt.authorityLimitations[0] ?? "",
+      /legacy shell command strings and is not executed/u,
+    );
+    await assert.rejects(readFile(marker, "utf8"));
+
+    configured.version = 2;
+    configured.requiredCommands = ["node --version"];
+    await writePolicy(directory, configured);
+    result = await execute("verify", directory);
+    assert.equal(result.receipt.verdict, "Inconclusive");
+    assert.equal(result.receipt.authoritative, false);
+    assert.match(
+      result.receipt.authorityLimitations[0] ?? "",
+      /must be a non-empty array of non-empty strings/u,
+    );
+
+    configured.requiredCommands = [[]];
+    await writePolicy(directory, configured);
+    result = await execute("verify", directory);
+    assert.equal(result.receipt.verdict, "Inconclusive");
+    assert.equal(result.receipt.authoritative, false);
   } finally {
     await cleanup(directory);
   }
@@ -205,6 +248,10 @@ test("scan represents required commands as NotRun and cannot be authoritative", 
     assert.equal(result.receipt.verdict, "Inconclusive");
     assert.equal(result.receipt.authoritative, false);
     assert.equal(result.receipt.requiredCommands[0]?.status, "NotRun");
+    assert.equal(result.receipt.requiredCommands[0]?.executable, "node");
+    assert.deepEqual(result.receipt.requiredCommands[0]?.arguments, [
+      "--version",
+    ]);
   } finally {
     await cleanup(directory);
   }
@@ -327,7 +374,7 @@ test("incomplete scope and unavailable required command cannot pass", async () =
     let result = await execute("verify", directory);
     assert.equal(result.receipt.verdict, "Inconclusive");
     configured.includeGlobs = ["docs/**/*.md"];
-    configured.requiredCommands = ["surely-unavailable-ste-assay-command"];
+    configured.requiredCommands = [["surely-unavailable-ste-assay-command"]];
     await writePolicy(directory, configured);
     result = await execute("verify", directory);
     assert.equal(result.receipt.verdict, "ToolFailure");

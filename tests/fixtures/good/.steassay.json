@@ -1,11 +1,11 @@
 {
-  "version": 1,
+  "version": 2,
   "profile": "new",
   "includeGlobs": ["docs/**/*.md"],
   "excludedGlobs": ["docs/excluded/**"],
   "glossaryPath": "glossary.json",
   "vocabularyPath": "vocabulary.json",
-  "requiredCommands": ["node --version"],
+  "requiredCommands": [["node", "--version"]],
   "rules": {
     "STE-S01": { "maxWords": 12 },
     "STE-S09": { "markers": ["requirement"], "modals": ["must", "shall"] }
