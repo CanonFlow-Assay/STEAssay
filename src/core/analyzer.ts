@@ -111,12 +111,12 @@ const parseMarkdown = (
   }
   const lines = file.content.split(/\r?\n/u);
   let fence: "`" | "~" | undefined;
-  const headings: TextLine[] = [];
-  const prose: ProseBlock[] = [];
+  let headings: TextLine[] = [];
+  let prose: ProseBlock[] = [];
   let open: TextLine[] = [];
   const flush = (): void => {
     if (open.length > 0) {
-      prose.push({
+      prose = prose.concat({
         text: open.map((line) => line.text).join(" "),
         lines: open,
       });
@@ -144,7 +144,7 @@ const parseMarkdown = (
     if (atx !== null) {
       flush();
       const rawText = atx[1] ?? "";
-      headings.push({
+      headings = headings.concat({
         line: lineNumber,
         column: raw.length - rawText.length + 1,
         text: normalizedVisible(rawText),
@@ -160,7 +160,7 @@ const parseMarkdown = (
       const previous = prose.pop();
       const source = previous?.lines.at(-1);
       if (source !== undefined) {
-        headings.push({
+        headings = headings.concat({
           line: source.line,
           column: source.column,
           text: normalizedVisible(source.text),

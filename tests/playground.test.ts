@@ -217,3 +217,20 @@ test("static playground entrypoint smoke test includes the local-only boundary",
   );
   assert.match(document, /<script type="module" src="\.\/app\.js"><\/script>/u);
 });
+
+test("parser preserves ATX and setext headings across immutable collection updates", () => {
+  const result = previewMarkdown(
+    "#\n\nInstallation\n---\n\nUse the API.",
+    matchingPolicy(),
+  );
+  assert.deepEqual(
+    result.findings.map((finding) => ({
+      ruleId: finding.ruleId,
+      position: {
+        line: finding.position.line,
+        column: finding.position.column,
+      },
+    })),
+    [{ ruleId: "STE-S02", position: { line: 1, column: 2 } }],
+  );
+});
