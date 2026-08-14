@@ -1,4 +1,4 @@
-name: TypeScriptAssay M1 evidence
+name: TypeScriptAssay evidence
 
 on:
   pull_request:
@@ -6,7 +6,9 @@ on:
       - ".github/workflows/typescriptassay-evidence.yml"
       - ".prettierignore"
       - "docs/evidence/m1-typescriptassay/**"
+      - "docs/evidence/m2-typescriptassay-baseline-triage/**"
       - "docs/m1-typescriptassay.md"
+      - "docs/m2-typescriptassay-baseline-triage.md"
   workflow_dispatch:
 
 permissions:
@@ -47,4 +49,40 @@ jobs:
           node --input-type=module -e
           'import { readFileSync } from "node:fs";
           const receipt = JSON.parse(readFileSync("/tmp/typescriptassay-m1-replay-receipt.json", "utf8"));
+          if (receipt.verdict.kind !== "Pass" || receipt.authoritative !== true) process.exit(1);'
+
+  replay-m2:
+    # The converge policy is trusted repository input; do not execute it from a
+    # fork pull request, and do not provide this job with secrets.
+    if: >-
+      github.event_name != 'pull_request' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b
+        with:
+          node-version: 20.20.2
+          cache: npm
+      - run: npm ci
+      - run: sha256sum -c SHA256SUMS
+        working-directory: docs/evidence/m2-typescriptassay-baseline-triage
+      - run: npm run format:check
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:playwright
+      - run: cp docs/evidence/m2-typescriptassay-baseline-triage/policy.json .tsassay.json
+      - run: >-
+          npm exec --yes --package=typescript-assay@0.1.1 --
+          ts-assay verify .
+          --json /tmp/typescriptassay-m2-replay-receipt.json
+          --sarif /tmp/typescriptassay-m2-replay-report.sarif
+          --clock 2026-08-14T10:30:00.000Z
+      - run: >-
+          node --input-type=module -e
+          'import { readFileSync } from "node:fs";
+          const receipt = JSON.parse(readFileSync("/tmp/typescriptassay-m2-replay-receipt.json", "utf8"));
           if (receipt.verdict.kind !== "Pass" || receipt.authoritative !== true) process.exit(1);'

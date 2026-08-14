@@ -15,3 +15,10 @@ docs/evidence/m1-typescriptassay/report.sarif
 docs/evidence/m1-typescriptassay/rule-catalog.json
 docs/evidence/m1-typescriptassay/scope-manifest.json
 docs/evidence/m1-typescriptassay/toolchain-manifest.json
+docs/evidence/m2-typescriptassay-baseline-triage/baseline-delta.json
+docs/evidence/m2-typescriptassay-baseline-triage/policy.json
+docs/evidence/m2-typescriptassay-baseline-triage/receipt.json
+docs/evidence/m2-typescriptassay-baseline-triage/report.sarif
+docs/evidence/m2-typescriptassay-baseline-triage/rule-catalog.json
+docs/evidence/m2-typescriptassay-baseline-triage/scope-manifest.json
+docs/evidence/m2-typescriptassay-baseline-triage/toolchain-manifest.json

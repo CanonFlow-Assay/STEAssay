@@ -1,0 +1,82 @@
+{
+  "catalogDigest": "e80317f92de666c51a08e10f8a357c8b1d18abacbf13fd1c39ad7f77d74b475c",
+  "rules": [
+    {
+      "id": "TSA-B01",
+      "observation": "In configured boundary files, exported function parameters whose annotation names a configured trusted domain type are reported. This is a bounded ownership check, not a proof that every JSON value was decoded.",
+      "rationale": "External representations are not trusted domain values.",
+      "severity": "error",
+      "title": "Boundary parameters do not claim a trusted domain type"
+    },
+    {
+      "id": "TSA-B02",
+      "observation": "Reports explicit any syntax and compiler-reported implicit-any diagnostics in the selected scope.",
+      "rationale": "any erases TypeScript checking at the point it is used.",
+      "severity": "error",
+      "title": "any is forbidden"
+    },
+    {
+      "id": "TSA-B03",
+      "observation": "Reports as, type assertions, non-null assertions, @ts-ignore, and @ts-expect-error; policy chooses forbid or allow-with-receipt for each class.",
+      "rationale": "Assertions and suppression directives bypass or suppress checking.",
+      "severity": "warning",
+      "title": "Soundness escape hatches are explicit policy evidence"
+    },
+    {
+      "id": "TSA-D01",
+      "observation": "Reports throw statements in configured domain files. It does not infer whether every function result is a result-like union.",
+      "rationale": "Expected domain failure should remain explicit data.",
+      "severity": "error",
+      "title": "Domain failures do not throw"
+    },
+    {
+      "id": "TSA-D02",
+      "observation": "For switch expressions whose checked union members expose a configured string-literal discriminator, reports missing literal cases. A default clause alone is not accepted as proof of handling.",
+      "rationale": "A new union case should not silently fall through.",
+      "severity": "error",
+      "title": "Configured discriminated unions are exhaustive"
+    },
+    {
+      "id": "TSA-D03",
+      "observation": "Reports non-literal element access in domain files unless it is lexically guarded by key in object or Object.hasOwn(object, key). It is not a proof of every runtime key invariant.",
+      "rationale": "Dynamic lookup can yield absent or unintended data.",
+      "severity": "error",
+      "title": "Dynamic indexed access is refined before use"
+    },
+    {
+      "id": "TSA-I01",
+      "observation": "Reports Array, Map, Set and mutable object properties in exported domain type/interface declarations. readonly is static only; no deep runtime immutability is claimed.",
+      "rationale": "Public mutable data permits callers to invalidate decisions after construction.",
+      "severity": "error",
+      "title": "Public domain contracts do not expose mutable collection or object shapes"
+    },
+    {
+      "id": "TSA-I02",
+      "observation": "Reports assignments through a property/index and recognized mutating collection methods in configured domain files.",
+      "rationale": "Mutation obscures value flow and invalidates referential reasoning.",
+      "severity": "error",
+      "title": "Domain mutation is forbidden"
+    },
+    {
+      "id": "TSA-E01",
+      "observation": "Reports imports of known Node infrastructure modules and direct use of fetch, console, process, timers, Math.random, and Date.now in domain files.",
+      "rationale": "Effects should be isolated at named boundaries.",
+      "severity": "error",
+      "title": "Domain modules do not directly use known infrastructure effects"
+    },
+    {
+      "id": "TSA-E02",
+      "observation": "Reports a domain import that resolves to a configured boundary/adapters source file. It does not infer architectural intent beyond that dependency edge.",
+      "rationale": "The core should receive capability inputs rather than concrete adapters.",
+      "severity": "error",
+      "title": "Domain modules do not depend on configured adapters"
+    },
+    {
+      "id": "TSA-S01",
+      "observation": "Reports references in domain files to a policy-listed transport/DTO type name. It does not prove runtime schema completeness.",
+      "rationale": "Transport representation requires an explicit decoding boundary.",
+      "severity": "error",
+      "title": "Configured transport type names do not enter domain code"
+    }
+  ]
+}
