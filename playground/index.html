@@ -11,103 +11,198 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <main>
-      <header>
-        <p class="eyebrow">STEAssay Playground 0.1</p>
-        <h1>Controlled writing preview</h1>
-        <p class="notice" data-testid="preview-notice">
-          Preview only — non-authoritative
-        </p>
-        <p>
-          Markdown, policy, glossary, and vocabulary remain in this browser.
-          Analyzer version: <code id="analyzer-version"></code>. This page never
-          uploads text or executes project commands.
-        </p>
+    <main class="app-shell" data-testid="playground-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">STEAssay Playground</p>
+          <h1>Controlled writing preview</h1>
+          <p class="product-statement">
+            Local Markdown preview with project-owned policy data.
+          </p>
+          <p class="notice" data-testid="preview-notice">
+            Preview only — non-authoritative
+          </p>
+          <p class="local-boundary">
+            Markdown, policy, glossary, and vocabulary remain in this browser.
+            Analyzer version: <code id="analyzer-version"></code>.
+            <span
+              >This page never uploads text or executes project commands.</span
+            >
+          </p>
+        </div>
+        <div
+          class="assurance-stack"
+          data-testid="assurance-stack"
+          aria-hidden="true"
+        >
+          <span class="assurance-layer assurance-layer-markdown">Markdown</span>
+          <span class="assurance-layer assurance-layer-policy">Policy</span>
+          <span class="assurance-layer assurance-layer-findings">Findings</span>
+        </div>
       </header>
 
-      <section class="samples" aria-label="Bundled examples">
-        <label for="example-selector">Examples</label>
-        <select id="example-selector"></select>
-        <button id="load-example" type="button">Load example</button>
-        <button id="reset-to-example-policy" type="button">
-          Reset to example policy
-        </button>
-      </section>
+      <div class="workbench">
+        <section class="authoring-pane" aria-labelledby="authoring-title">
+          <h2 class="visually-hidden" id="authoring-title">
+            Authoring workbench
+          </h2>
 
-      <section class="example-details" aria-labelledby="example-title">
-        <h2 id="example-title"></h2>
-        <p id="example-description"></p>
-        <p id="example-source-note"></p>
-        <p id="example-limitation"></p>
-        <div class="result-comparison" aria-live="polite">
-          <p id="expected-result" data-testid="expected-result"></p>
-          <p id="observed-result" data-testid="observed-result"></p>
-        </div>
-        <p id="playground-regression" data-testid="playground-regression"></p>
-      </section>
+          <section class="samples surface-card" aria-label="Bundled examples">
+            <div class="section-intro">
+              <p class="section-kicker">Local specimen</p>
+              <h2>Load an example</h2>
+            </div>
+            <div class="sample-controls">
+              <label for="example-selector">Examples</label>
+              <select id="example-selector"></select>
+              <button id="load-example" type="button">Load example</button>
+              <button id="reset-to-example-policy" type="button">
+                Reset to example policy
+              </button>
+            </div>
+          </section>
 
-      <section class="workspace">
-        <div>
-          <label for="markdown">Markdown (local preview input)</label>
-          <textarea id="markdown" rows="15" spellcheck="false"></textarea>
-        </div>
-        <fieldset>
-          <legend>
-            Project-owned policy and vocabulary (local preview input)
-          </legend>
-          <label for="max-words">Sentence word limit</label>
-          <input id="max-words" min="1" type="number" />
-          <label for="requirement-marker"
-            >Requirement marker terms, comma-separated</label
+          <section
+            class="example-details surface-card"
+            aria-labelledby="example-title"
           >
-          <input id="requirement-marker" type="text" />
-          <label for="requirement-modal"
-            >Requirement modal terms, comma-separated</label
-          >
-          <input id="requirement-modal" type="text" />
-          <label for="glossary">Glossary abbreviations as JSON</label>
-          <textarea id="glossary" rows="5" spellcheck="false"></textarea>
-          <label for="banned-terms">Banned terms, comma-separated</label>
-          <textarea id="banned-terms" rows="2"></textarea>
-          <label for="deprecated-terms"
-            >Deprecated terms, one per line: term =&gt; replacement</label
-          >
-          <textarea id="deprecated-terms" rows="3"></textarea>
-          <label for="terminology"
-            >Terminology, one per line: canonical =&gt; noncanonical
-            terms</label
-          >
-          <textarea id="terminology" rows="3"></textarea>
-          <label for="imperative-verbs"
-            >Imperative verbs, comma-separated</label
-          >
-          <textarea id="imperative-verbs" rows="2"></textarea>
-        </fieldset>
-      </section>
+            <h2 id="example-title"></h2>
+            <p id="example-description"></p>
+            <p id="example-source-note"></p>
+            <p id="example-limitation"></p>
+            <div class="result-comparison" aria-live="polite">
+              <p id="expected-result" data-testid="expected-result"></p>
+              <p id="observed-result" data-testid="observed-result"></p>
+            </div>
+            <p
+              id="playground-regression"
+              data-testid="playground-regression"
+            ></p>
+          </section>
 
-      <section class="actions">
-        <button id="run-preview" type="button">Run local preview</button>
-        <button id="apply-corrections" type="button">
-          Apply all safe corrections
-        </button>
-        <p id="error-message" role="alert"></p>
-      </section>
+          <section
+            class="input-card surface-card"
+            aria-labelledby="markdown-title"
+          >
+            <div class="section-intro">
+              <p class="section-kicker">Local input</p>
+              <h2 id="markdown-title">Markdown</h2>
+            </div>
+            <label class="visually-hidden" for="markdown"
+              >Markdown (local preview input)</label
+            >
+            <textarea
+              id="markdown"
+              rows="15"
+              spellcheck="false"
+              aria-label="Markdown (local preview input)"
+            ></textarea>
+          </section>
 
-      <section aria-labelledby="findings-title">
-        <h2 id="findings-title">Findings</h2>
-        <p id="result-summary" data-testid="result-summary"></p>
-        <ul id="findings" data-testid="finding-list"></ul>
-      </section>
+          <section
+            class="policy-card surface-card"
+            aria-labelledby="policy-title"
+          >
+            <div class="policy-active" aria-live="polite">
+              <div>
+                <p class="section-kicker">Local input</p>
+                <h2 id="policy-title">Policy and vocabulary</h2>
+              </div>
+              <p id="policy-summary" data-testid="policy-summary"></p>
+            </div>
+            <details class="policy-details" open>
+              <summary>Adjust local policy and vocabulary</summary>
+              <fieldset class="policy-fields">
+                <legend>
+                  Project-owned policy and vocabulary (local preview input)
+                </legend>
+                <label for="max-words">Sentence word limit</label>
+                <input id="max-words" min="1" type="number" />
+                <label for="requirement-marker"
+                  >Requirement marker terms, comma-separated</label
+                >
+                <input id="requirement-marker" type="text" />
+                <label for="requirement-modal"
+                  >Requirement modal terms, comma-separated</label
+                >
+                <input id="requirement-modal" type="text" />
+                <label for="glossary">Glossary abbreviations as JSON</label>
+                <textarea id="glossary" rows="5" spellcheck="false"></textarea>
+                <label for="banned-terms">Banned terms, comma-separated</label>
+                <textarea id="banned-terms" rows="2"></textarea>
+                <label for="deprecated-terms"
+                  >Deprecated terms, one per line: term =&gt; replacement</label
+                >
+                <textarea id="deprecated-terms" rows="3"></textarea>
+                <label for="terminology"
+                  >Terminology, one per line: canonical =&gt; noncanonical
+                  terms</label
+                >
+                <textarea id="terminology" rows="3"></textarea>
+                <label for="imperative-verbs"
+                  >Imperative verbs, comma-separated</label
+                >
+                <textarea id="imperative-verbs" rows="2"></textarea>
+              </fieldset>
+            </details>
+          </section>
 
-      <section>
-        <h2>Corrected preview</h2>
-        <p>
-          Only configured deprecated-term and terminology replacements are
-          applied. Sentence length, headings, passive voice, and requirement
-          language always require manual review.
-        </p>
-        <textarea id="corrected-preview" rows="15" readonly></textarea>
-      </section>
+          <section class="actions" aria-label="Preview actions">
+            <button class="button-primary" id="run-preview" type="button">
+              Run local preview
+            </button>
+            <button id="apply-corrections" type="button">
+              Apply all safe corrections
+            </button>
+            <p id="error-message" role="alert"></p>
+          </section>
+        </section>
+
+        <section class="results-pane" aria-labelledby="findings-title">
+          <div class="result-header">
+            <div>
+              <p class="section-kicker">Local result</p>
+              <h2 id="findings-title">Preview findings</h2>
+            </div>
+            <p
+              id="result-summary"
+              data-testid="result-summary"
+              aria-live="polite"
+            ></p>
+          </div>
+          <dl class="severity-chips" aria-label="Finding severity counts">
+            <div class="severity-chip severity-chip-blocking">
+              <dt>Blocking</dt>
+              <dd data-testid="blocking-count" id="blocking-count">0</dd>
+            </div>
+            <div class="severity-chip severity-chip-advisory">
+              <dt>Advisory</dt>
+              <dd data-testid="advisory-count" id="advisory-count">0</dd>
+            </div>
+          </dl>
+          <div
+            id="findings"
+            data-testid="finding-list"
+            aria-live="polite"
+          ></div>
+
+          <section
+            class="corrected-preview surface-card"
+            aria-labelledby="corrected-title"
+          >
+            <div class="section-intro">
+              <p class="section-kicker">Safe changes only</p>
+              <h3 id="corrected-title">Corrected preview</h3>
+            </div>
+            <p>
+              Only configured deprecated-term and terminology replacements are
+              applied. Sentence length, headings, passive voice, and requirement
+              language always require manual review.
+            </p>
+            <textarea id="corrected-preview" rows="15" readonly></textarea>
+          </section>
+        </section>
+      </div>
     </main>
     <script type="module" src="./app.js"></script>
   </body>
