@@ -55,19 +55,17 @@ const analysisConfiguration = (
 });
 
 const loadCompiledWholeTerm = async (): Promise<(term: string) => RegExp> => {
-  const artifactPath = resolve(process.cwd(), "dist", "src", "analyzer.js");
+  const artifactPath = resolve(
+    process.cwd(),
+    "dist",
+    "src",
+    "core",
+    "analyzer.js",
+  );
   let artifact = await readFile(artifactPath, "utf8");
   const replacements: readonly [string, string][] = [
     [
-      'import { basename } from "node:path";',
-      "const basename = (value) => value;",
-    ],
-    [
-      'import { canonicalJson, sha256 } from "./canonical.js";',
-      "const canonicalJson = () => ''; const sha256 = () => '';",
-    ],
-    [
-      'import { findRule } from "./catalog.js";',
+      'import { findRule } from "../rules.js";',
       "const findRule = () => undefined;",
     ],
   ];
