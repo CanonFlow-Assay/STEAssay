@@ -21,8 +21,10 @@ Each item in `requiredCommands` is a non-empty array of non-empty strings:
 
 The first item is the executable and later items are literal arguments. There
 is no shell parser and no escape convention. If a project previously used a
-version 1 string such as `"npm run test && npm run lint"`, it must split it
-into separate vectors where that preserves intent. Shell composition,
+version 1 string such as `"npm run test"`, migrate it to
+`["npm", "run", "test"]`. A compound string such as
+`"npm run test && npm run lint"` must split into separate vectors where that
+preserves intent. Shell composition,
 redirection, command substitution, and environment assignments require a
 deliberate project-owned executable or script; they are not represented in
 policy.

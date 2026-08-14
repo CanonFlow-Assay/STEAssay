@@ -179,17 +179,11 @@ test("required commands preserve literal argv and do not interpolate shell synta
   }
 });
 
-test("legacy shell policies and malformed command arrays cannot pass", async () => {
-  const directory = await makeProject();
+test("legacy v1 shell-policy fixture is rejected before a child process starts", async () => {
+  const directory = await makeProject("legacy-shell-policy");
   try {
-    const configured = await policy(directory);
     const marker = resolve(directory, "legacy-shell-marker.txt");
-    configured.version = 1;
-    configured.requiredCommands = [
-      `${process.execPath} -e ${JSON.stringify("require('node:fs').writeFileSync(process.argv[1], 'executed')")} ${JSON.stringify(marker)}`,
-    ];
-    await writePolicy(directory, configured);
-    let result = await execute("verify", directory);
+    const result = await execute("verify", directory);
     assert.equal(result.receipt.verdict, "Inconclusive");
     assert.equal(result.receipt.authoritative, false);
     assert.match(
@@ -197,11 +191,18 @@ test("legacy shell policies and malformed command arrays cannot pass", async () 
       /legacy shell command strings and is not executed/u,
     );
     await assert.rejects(readFile(marker, "utf8"));
+  } finally {
+    await cleanup(directory);
+  }
+});
 
-    configured.version = 2;
+test("malformed command arrays cannot pass", async () => {
+  const directory = await makeProject();
+  try {
+    const configured = await policy(directory);
     configured.requiredCommands = ["node --version"];
     await writePolicy(directory, configured);
-    result = await execute("verify", directory);
+    let result = await execute("verify", directory);
     assert.equal(result.receipt.verdict, "Inconclusive");
     assert.equal(result.receipt.authoritative, false);
     assert.match(
