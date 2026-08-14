@@ -17,7 +17,7 @@ ste-assay verify <path>
 ste-assay explain <rule-id>
 ```
 
-`doctor` checks toolchain/configuration readiness and makes no compliance claim. `scan` performs static Markdown observation; if policy requires commands, they are explicitly `NotRun` and the result is non-authoritative. `verify` runs required commands and records their status, exit code, and output digest. Each configured command is executed through the platform shell in the target root, so the policy is trusted executable input and must be reviewed before `verify` is run. Every command produces a readable terminal report plus canonical JSON and SARIF in `<path>/.ste-assay/`.
+`doctor` checks toolchain/configuration readiness and makes no compliance claim. `scan` performs static Markdown observation; if policy requires commands, they are explicitly `NotRun` and the result is non-authoritative. `verify` runs each configured executable and literal argument vector without a shell, recording the executable, arguments, status, exit code, and output digest. Policy is still trusted process-execution input and must be reviewed before `verify` is run. Every command produces a readable terminal report plus canonical JSON and SARIF in `<path>/.ste-assay/`.
 
 ## Quick start
 
@@ -28,6 +28,14 @@ node dist/src/cli.js verify examples/minimal
 ```
 
 See [examples/minimal](examples/minimal) for a complete local policy, glossary, and vocabulary. The vocabulary is supplied by the project; STEAssay ships no ASD-STE100 dictionary, avoid list, or standard text.
+
+`policy.version` is `2`. Each `requiredCommands` item is a non-empty JSON
+array: the first string is the executable and later strings are literal
+arguments. For example, `["npm", "run", "test"]` runs exactly that process
+vector. Shell strings, quoting, chaining, redirection, and expansion are not
+accepted. Version 1 policies are rejected without execution; see the
+[M3 command-boundary design](docs/m3-required-commands.md) for migration and
+trust limits.
 
 ## Playground
 
