@@ -1,0 +1,110 @@
+{
+  "schemaVersion": "ste-assay-release-preparation/0.2",
+  "generatedAt": "2026-08-14T10:55:03Z",
+  "baseMain": "868488458bfdbd999ccde555a4176bf328b0f897",
+  "artifactBuildCommit": "0d08c1cf4c59c59b002e939418781d976c4a786a",
+  "sourceCode": {
+    "revision": "868488458bfdbd999ccde555a4176bf328b0f897",
+    "changeFromBase": "Only package.json and package-lock.json change the release version from 0.1.0 to 0.2.0."
+  },
+  "toolchain": {
+    "node": "v20.20.2",
+    "npm": "10.8.2",
+    "packageLockSha256": "15256d17f6098ece7788938a286324c608be7392e521ca60623fccf4109d1c9c"
+  },
+  "repositoryChecks": [
+    { "command": "npm ci", "exitCode": 0 },
+    { "command": "npm run format:check", "exitCode": 0 },
+    { "command": "npm run lint", "exitCode": 0 },
+    { "command": "npm run typecheck", "exitCode": 0 },
+    { "command": "npm test", "exitCode": 0, "detail": "45/45 tests passed" },
+    { "command": "npm run build", "exitCode": 0 },
+    { "command": "npm run test:playwright", "exitCode": 0, "detail": "16/16 tests passed" }
+  ],
+  "npmPack": {
+    "name": "ste-assay",
+    "version": "0.2.0",
+    "filename": "ste-assay-0.2.0.tgz",
+    "size": 17081,
+    "unpackedSize": 59896,
+    "fileCount": 16,
+    "sha256": "9b52e8488285517772d02a65c28d5cd5b7be022d4da8ac69f4f6d3ed9f44b71a",
+    "sha1": "77e81aadd0e2cddfe6de141c3f57746e4452db9d",
+    "npmShasum": "77e81aadd0e2cddfe6de141c3f57746e4452db9d",
+    "integrity": "sha512-RZTTHB6P6xb0aqPpVlTtBbMGwedhDpx6WXmA8mp31giogeWtDLVhrv93sLWne1KP6o9j67XLuDBqA5bz3wfKpw==",
+    "publishable": true,
+    "fileManifest": "tarball.json"
+  },
+  "installedTarballExercise": {
+    "installCommand": "npm install --ignore-scripts <exact tarball>",
+    "installedPackageVersion": "0.2.0",
+    "v2Fixture": {
+      "policyVersion": 2,
+      "policySha256": "3c012de01d2dfe1ee68ec5b1b1fa8a8637bbcb4ac9babd742e908896b31a6f08",
+      "glossarySha256": "07f70dc42f2572df47c8c4592de5a16084a2ed1f43becbad689da1c73944b9de",
+      "vocabularySha256": "b33037b8d4d3a87990719b46a190e487714fadb9fd58c04dc1b17f2d10b293ca",
+      "commands": {
+        "help": {
+          "command": "ste-assay --help",
+          "exitCode": 0
+        },
+        "doctor": {
+          "command": "ste-assay doctor <v2 fixture>",
+          "exitCode": 0,
+          "verdict": "Inconclusive",
+          "authoritative": false,
+          "receiptSha256": "1802ba5e01973bc7e8e42819dc8327d4e3afe3280227870998124afee41a3e13",
+          "sarifSha256": "0d5c6b8ea44a9b5d4b2afc374c74d36eaba5425211f66ff2815828b7900a6fc6"
+        },
+        "scan": {
+          "command": "ste-assay scan <v2 fixture>",
+          "exitCode": 2,
+          "verdict": "Inconclusive",
+          "authoritative": false,
+          "requiredCommandStatus": "NotRun",
+          "receiptSha256": "55f83b740e21bcfdb0e402731574a831649db0795fb6953022010246999f860c",
+          "sarifSha256": "0d5c6b8ea44a9b5d4b2afc374c74d36eaba5425211f66ff2815828b7900a6fc6"
+        },
+        "verify": {
+          "command": "ste-assay verify <v2 fixture>",
+          "exitCode": 0,
+          "verdict": "Pass",
+          "authoritative": true,
+          "receiptSchemaVersion": 2,
+          "requiredCommand": {
+            "executable": "node",
+            "arguments": ["--version"],
+            "status": "Passed"
+          },
+          "receiptSha256": "beced591177e057fc9802aa67f65301e51652676de74f87eee52ee4140757dd3",
+          "sarifSha256": "0d5c6b8ea44a9b5d4b2afc374c74d36eaba5425211f66ff2815828b7900a6fc6"
+        }
+      }
+    },
+    "v1FailClosedFixture": {
+      "policyVersion": 1,
+      "command": "ste-assay verify <v1 marker-writing fixture>",
+      "exitCode": 2,
+      "verdict": "Inconclusive",
+      "authoritative": false,
+      "markerExistsAfterRun": false,
+      "receiptSha256": "cd999ae957cad2e502307d4732cf74828cc573b92bacb4a97a84f6c59278c910",
+      "sarifSha256": "0d5c6b8ea44a9b5d4b2afc374c74d36eaba5425211f66ff2815828b7900a6fc6",
+      "limitation": "policy.version 1 uses legacy shell command strings and is not executed. Migrate to policy.version 2 with requiredCommands entries such as [\"npm\", \"run\", \"test\"]."
+    }
+  },
+  "assertions": {
+    "tarballInstalledFromExactRecordedFile": true,
+    "helpExitsSuccessfully": true,
+    "doctorMakesNoComplianceClaim": true,
+    "scanIsNonAuthoritativeWhenRequiredCommandIsNotRun": true,
+    "v2VerifyIsAuthoritativePass": true,
+    "v1PolicyFailsClosedWithoutExecution": true,
+    "releaseEvidenceCommitIsExcludedFromPackageAllowlist": true
+  },
+  "limitations": [
+    "This evidence proves only the artifact-build commit tarball under the recorded Node/npm toolchain and disposable fixtures.",
+    "The final evidence-only commit is excluded by the package files allowlist; a clean final-main pack must match the recorded SHA-256 before any publish decision.",
+    "No npm publication, tag, GitHub release, rule change, or automatic rewriting occurred in this preparation slice."
+  ]
+}

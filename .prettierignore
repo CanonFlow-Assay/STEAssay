@@ -8,6 +8,8 @@ docs/evidence/m1-winston/report.sarif
 docs/evidence/m1-winston/vocabulary.json
 docs/evidence/release-preparation-0.1.0/evidence.json
 docs/evidence/release-preparation-0.1.0/tarball.json
+docs/evidence/release-preparation-0.2.0/evidence.json
+docs/evidence/release-preparation-0.2.0/tarball.json
 docs/evidence/m1-typescriptassay/adversarial-results.json
 docs/evidence/m1-typescriptassay/policy.json
 docs/evidence/m1-typescriptassay/receipt.json
