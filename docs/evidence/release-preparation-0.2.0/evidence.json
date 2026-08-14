@@ -1,11 +1,12 @@
 {
   "schemaVersion": "ste-assay-release-preparation/0.2",
-  "generatedAt": "2026-08-14T10:55:03Z",
+  "generatedAt": "2026-08-14T11:00:52Z",
   "baseMain": "868488458bfdbd999ccde555a4176bf328b0f897",
-  "artifactBuildCommit": "0d08c1cf4c59c59b002e939418781d976c4a786a",
+  "artifactBuildCommit": "5eb146ebf80367ccd996a8a9e0ff27cae659dd59",
   "sourceCode": {
-    "revision": "868488458bfdbd999ccde555a4176bf328b0f897",
-    "changeFromBase": "Only package.json and package-lock.json change the release version from 0.1.0 to 0.2.0."
+    "baseRevision": "868488458bfdbd999ccde555a4176bf328b0f897",
+    "artifactBuildRevision": "5eb146ebf80367ccd996a8a9e0ff27cae659dd59",
+    "changeFromBase": "The release branch changes package.json/package-lock.json to 0.2.0 and repairs the receipt/SARIF tool version to report 0.2.0."
   },
   "toolchain": {
     "node": "v20.20.2",
@@ -25,13 +26,13 @@
     "name": "ste-assay",
     "version": "0.2.0",
     "filename": "ste-assay-0.2.0.tgz",
-    "size": 17081,
+    "size": 17080,
     "unpackedSize": 59896,
     "fileCount": 16,
-    "sha256": "9b52e8488285517772d02a65c28d5cd5b7be022d4da8ac69f4f6d3ed9f44b71a",
-    "sha1": "77e81aadd0e2cddfe6de141c3f57746e4452db9d",
-    "npmShasum": "77e81aadd0e2cddfe6de141c3f57746e4452db9d",
-    "integrity": "sha512-RZTTHB6P6xb0aqPpVlTtBbMGwedhDpx6WXmA8mp31giogeWtDLVhrv93sLWne1KP6o9j67XLuDBqA5bz3wfKpw==",
+    "sha256": "d8a4e4987dd0669607a7540075302cc1325e07750cadb8444047646e8eb646fc",
+    "sha1": "ee696868762596f1becd67f1df43e507307cddc1",
+    "npmShasum": "ee696868762596f1becd67f1df43e507307cddc1",
+    "integrity": "sha512-aj029e8I/4GSf20hujRLK6s459oPi+785N7ovsOCJFSCs9dJwopZkkjZSvHinrISEGVMBiPI274kP2Lg0Kl7tg==",
     "publishable": true,
     "fileManifest": "tarball.json"
   },
@@ -53,8 +54,8 @@
           "exitCode": 0,
           "verdict": "Inconclusive",
           "authoritative": false,
-          "receiptSha256": "1802ba5e01973bc7e8e42819dc8327d4e3afe3280227870998124afee41a3e13",
-          "sarifSha256": "0d5c6b8ea44a9b5d4b2afc374c74d36eaba5425211f66ff2815828b7900a6fc6"
+          "receiptSha256": "e68f8dcf495c8c4f1132335c6bf5cdf2a0f0fa3704dd8f68542d4986ced5782c",
+          "sarifSha256": "306ef4f207901cb21097886cfeffff892483452e9ed08197cf6cad6a689e6a67"
         },
         "scan": {
           "command": "ste-assay scan <v2 fixture>",
@@ -62,22 +63,23 @@
           "verdict": "Inconclusive",
           "authoritative": false,
           "requiredCommandStatus": "NotRun",
-          "receiptSha256": "55f83b740e21bcfdb0e402731574a831649db0795fb6953022010246999f860c",
-          "sarifSha256": "0d5c6b8ea44a9b5d4b2afc374c74d36eaba5425211f66ff2815828b7900a6fc6"
+          "receiptSha256": "f7ff3f7a8bf0c12ea118e136aed1e024d6cc716061372b1ab2a316771864ab83",
+          "sarifSha256": "306ef4f207901cb21097886cfeffff892483452e9ed08197cf6cad6a689e6a67"
         },
         "verify": {
           "command": "ste-assay verify <v2 fixture>",
           "exitCode": 0,
           "verdict": "Pass",
           "authoritative": true,
+          "toolVersion": "0.2.0",
           "receiptSchemaVersion": 2,
           "requiredCommand": {
             "executable": "node",
             "arguments": ["--version"],
             "status": "Passed"
           },
-          "receiptSha256": "beced591177e057fc9802aa67f65301e51652676de74f87eee52ee4140757dd3",
-          "sarifSha256": "0d5c6b8ea44a9b5d4b2afc374c74d36eaba5425211f66ff2815828b7900a6fc6"
+          "receiptSha256": "891f72bc3675906b3368a556f2f23126e6cb97e3d3ca6673af0ee5652d62786b",
+          "sarifSha256": "306ef4f207901cb21097886cfeffff892483452e9ed08197cf6cad6a689e6a67"
         }
       }
     },
@@ -88,8 +90,8 @@
       "verdict": "Inconclusive",
       "authoritative": false,
       "markerExistsAfterRun": false,
-      "receiptSha256": "cd999ae957cad2e502307d4732cf74828cc573b92bacb4a97a84f6c59278c910",
-      "sarifSha256": "0d5c6b8ea44a9b5d4b2afc374c74d36eaba5425211f66ff2815828b7900a6fc6",
+      "receiptSha256": "d340ed91ce3a30f9da1a88890181ca79a7f6829043868e35b52c48f288d5c1a9",
+      "sarifSha256": "306ef4f207901cb21097886cfeffff892483452e9ed08197cf6cad6a689e6a67",
       "limitation": "policy.version 1 uses legacy shell command strings and is not executed. Migrate to policy.version 2 with requiredCommands entries such as [\"npm\", \"run\", \"test\"]."
     }
   },

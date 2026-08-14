@@ -3,10 +3,10 @@
     "id": "ste-assay@0.2.0",
     "name": "ste-assay",
     "version": "0.2.0",
-    "size": 17081,
+    "size": 17080,
     "unpackedSize": 59896,
-    "shasum": "77e81aadd0e2cddfe6de141c3f57746e4452db9d",
-    "integrity": "sha512-RZTTHB6P6xb0aqPpVlTtBbMGwedhDpx6WXmA8mp31giogeWtDLVhrv93sLWne1KP6o9j67XLuDBqA5bz3wfKpw==",
+    "shasum": "ee696868762596f1becd67f1df43e507307cddc1",
+    "integrity": "sha512-aj029e8I/4GSf20hujRLK6s459oPi+785N7ovsOCJFSCs9dJwopZkkjZSvHinrISEGVMBiPI274kP2Lg0Kl7tg==",
     "filename": "ste-assay-0.2.0.tgz",
     "files": [
       {
